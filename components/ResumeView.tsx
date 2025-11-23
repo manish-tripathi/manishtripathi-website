@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { EXPERIENCE, PROFILE, EDUCATION, SKILLS, SOCIAL_LINKS } from '../constants';
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Calendar, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ResumeView: React.FC = () => {
@@ -60,12 +60,17 @@ const ResumeView: React.FC = () => {
                <span>{PROFILE.contact.location}</span>
                <MapPin className="w-3 h-3" />
             </div>
-            {SOCIAL_LINKS.map(link => (
-              <div key={link.platform} className="flex items-center justify-end gap-2">
-                 <a href={link.url} className="hover:underline">{link.label.replace('https://', '')}</a>
-                 {link.icon === 'linkedin' ? <Linkedin className="w-3 h-3" /> : <Github className="w-3 h-3" />}
-              </div>
-            ))}
+            {SOCIAL_LINKS.filter(link => link.platform !== 'Email').map(link => {
+              const Icon = link.platform === 'LinkedIn' ? Linkedin : 
+                           link.platform === 'GitHub' ? Github : 
+                           link.platform === 'Calendly' ? Calendar : Globe;
+              return (
+                <div key={link.platform} className="flex items-center justify-end gap-2">
+                   <a href={link.url} className="hover:underline">{link.label.replace('https://', '')}</a>
+                   <Icon className="w-3 h-3" />
+                </div>
+              );
+            })}
           </div>
         </header>
 

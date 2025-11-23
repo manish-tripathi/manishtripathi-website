@@ -29,6 +29,12 @@ export const SOCIAL_LINKS: SocialLink[] = [
     url: "https://github.com/manish-tripathi",
     icon: "github",
     label: "github.com/manish-tripathi"
+  },
+  {
+    platform: "Calendly",
+    url: "https://calendly.com/maneeshtripathi/30min",
+    icon: "calendar",
+    label: "Book a meeting"
   }
 ];
 

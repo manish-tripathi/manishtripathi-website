@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PROFILE, SOCIAL_LINKS } from '../constants';
-import { MapPin, Mail, Phone, Download, Linkedin, Github, Globe } from 'lucide-react';
+import { MapPin, Mail, Phone, Download, Linkedin, Github, Globe, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
@@ -11,6 +11,7 @@ const Hero: React.FC = () => {
       case 'linkedin': return <Linkedin className="w-4 h-4" />;
       case 'github': return <Github className="w-4 h-4" />;
       case 'email': return <Mail className="w-4 h-4" />;
+      case 'calendly': return <Calendar className="w-4 h-4" />;
       default: return <Globe className="w-4 h-4" />;
     }
   };
