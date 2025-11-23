@@ -130,49 +130,49 @@ export const PROJECTS: Project[] = [
   {
     title: "Python Customer Segmentation & Clustering",
     description: "Employed K-Means Clustering and Agglomerative Clustering techniques to segment customer data based on their Annual Income and Spending Score.",
-    link: "https://github.com/manish-tripathi/Projects",
+    link: "https://nbviewer.org/github/manish-tripathi/Projects/blob/main/Python%20Customer%20Segmentation%20%26%20Clustering.ipynb",
     tech: ["Python", "K-Means", "Clustering", "Scikit-learn"],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800"
   },
   {
     title: "Extracting Data from API",
     description: "Developed a pipeline to fetch and analyze news data using REST APIs from newsapi.org.",
-    link: "https://github.com/manish-tripathi/Projects",
+    link: "https://nbviewer.org/github/manish-tripathi/Projects/blob/main/NewsApi_Manish_Tripathi.ipynb",
     tech: ["Python", "API Integration", "JSON", "REST"],
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800"
   },
   {
     title: "Scraping Naukri.com for IT Jobs",
     description: "Scraped Naukri.com to identify companies in Hyderabad hiring for IT roles and analyzed the required skill sets for data science professionals.",
-    link: "https://github.com/manish-tripathi/Projects",
+    link: "https://nbviewer.org/github/manish-tripathi/Projects/blob/main/Naukri_Webscrapper.ipynb",
     tech: ["Python", "Web Scraping", "Data Mining", "Data Analysis"],
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800"
   },
   {
     title: "Classifying Water Safety with XGBoost",
     description: "Implemented an XGBoost classifier to predict whether water is safe for drinking based on ingredient composition and safety metrics.",
-    link: "https://github.com/manish-tripathi/Projects",
+    link: "https://nbviewer.org/github/manish-tripathi/Projects/blob/main/classifying-unbalanced-dataset-using-xgboost.ipynb",
     tech: ["Python", "XGBoost", "Machine Learning", "Classification"],
     image: "https://images.unsplash.com/photo-1544365558-35aa4afcf11f?auto=format&fit=crop&q=80&w=800"
   },
   {
     title: "NLP Using Hugging Face Library",
     description: "Explored Natural Language Processing with Transformers to perform sentiment analysis and translation tasks using the Hugging Face ecosystem.",
-    link: "https://github.com/manish-tripathi/Projects",
+    link: "https://nbviewer.org/github/manish-tripathi/Projects/blob/main/nlp-using-hugging-face-library.ipynb",
     tech: ["Python", "NLP", "Hugging Face", "Transformers"],
     image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800"
   },
   {
     title: "Creating Custom Datasets from Wikipedia",
     description: "Demonstrated how to create custom datasets for data science projects by scraping tables from Wikipedia using Python and Pandas (read_html).",
-    link: "https://github.com/manish-tripathi/Projects",
+    link: "https://nbviewer.org/github/manish-tripathi/Projects/blob/main/create-custom-datasets-from-wikipedia-with-python.ipynb",
     tech: ["Python", "Pandas", "Data Engineering", "Web Scraping"],
     image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800"
   },
   {
     title: "Scraping Euronext for IPOs",
     description: "Developed a Python script to scrape IPO listing data from Euronext, automating pagination to collect dates, company names, and details into a DataFrame.",
-    link: "https://github.com/manish-tripathi/Projects",
+    link: "https://nbviewer.org/github/manish-tripathi/Amplify-Analytix-Task/blob/main/scrapping-euronext-for-ipos.ipynb",
     tech: ["Python", "Web Scraping", "Pandas", "Automation"],
     image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&q=80&w=800"
   }
