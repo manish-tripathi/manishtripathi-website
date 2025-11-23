@@ -16,7 +16,7 @@ const MainLayout: React.FC<{ isDark: boolean, toggleTheme: () => void }> = ({ is
       <button 
         onClick={toggleTheme}
         className="fixed top-4 right-4 z-50 p-3 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-yellow-400 hover:scale-110 transition-all duration-300"
-        aria-label="Toggle Dark Mode"
+        aria-label="Toggle Light Mode"
       >
         {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
       </button>
@@ -35,7 +35,7 @@ const MainLayout: React.FC<{ isDark: boolean, toggleTheme: () => void }> = ({ is
           </section>
         </div>
 
-        {/* Right Content - Experience & Education */}
+        {/* Right Content - Experience, Projects, Education */}
         <div className="lg:col-span-8 space-y-12 order-1 lg:order-2">
           <section id="experience">
             <div className="flex items-center gap-3 mb-6">
@@ -45,20 +45,20 @@ const MainLayout: React.FC<{ isDark: boolean, toggleTheme: () => void }> = ({ is
             <Experience />
           </section>
 
-          <section id="education">
-            <div className="flex items-center gap-3 mb-6">
-              <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Education</h2>
-            </div>
-            <Education />
-          </section>
-
           <section id="projects">
             <div className="flex items-center gap-3 mb-6">
               <Code className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">Projects</h2>
             </div>
             <Projects />
+          </section>
+
+          <section id="education">
+            <div className="flex items-center gap-3 mb-6">
+              <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Education</h2>
+            </div>
+            <Education />
           </section>
         </div>
       </main>
@@ -72,7 +72,8 @@ const MainLayout: React.FC<{ isDark: boolean, toggleTheme: () => void }> = ({ is
 };
 
 const App: React.FC = () => {
-  const [isDark, setIsDark] = useState(false);
+  // Initialize to true for default Dark Mode
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     if (isDark) {
