@@ -43,4 +43,5 @@ export interface Project {
   link: string;
   tech?: string[];
   image: string;
+  video?: string;
 }

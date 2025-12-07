@@ -134,6 +134,21 @@ export const SKILLS: SkillCategory[] = [
 
 export const PROJECTS: Project[] = [
   {
+    title: "Cryptocurrency Market Analysis Dashboard",
+    description: "Designed an interactive cryptocurrency dashboard in Power BI monitoring market capitalization, trading volume, and price trends for seven major assets. Implemented time-series analysis and intuitive navigation controls to enhance financial data accessibility.",
+    link: "https://github.com/manish-tripathi/Dashboards/blob/58a9add47370dc03e5c2b9dbe8a54cf398ccac1b/Crypto%20Dashboard.pbix",
+    tech: ["Power BI", "Data Visualization", "Financial Analysis"],
+    video: "https://github.com/manish-tripathi/Dashboards/raw/58a9add47370dc03e5c2b9dbe8a54cf398ccac1b/video.mp4",
+    image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    title: "Sample Superstore Sales & Profitability Dashboard",
+    description: "Engineered a strategic sales dashboard utilizing the Sample Superstore dataset to track profitability and regional performance. Visualized key metrics including delivery times and segment contributions, identifying top-performing products and optimization opportunities via interactive maps and KPI cards.",
+    link: "https://github.com/manish-tripathi/Dashboards/blob/58a9add47370dc03e5c2b9dbe8a54cf398ccac1b/Sample%20Super%20Stores.pbix",
+    tech: ["Power BI", "KPI Dashboard", "Geographic Analysis", "Sales Analytics"],
+    image: "https://github.com/manish-tripathi/Dashboards/blob/58a9add47370dc03e5c2b9dbe8a54cf398ccac1b/1646801807935.jpg?raw=true"
+  },
+  {
     title: "Python Customer Segmentation & Clustering",
     description: "Employed K-Means Clustering and Agglomerative Clustering techniques to segment customer data based on their Annual Income and Spending Score.",
     link: "https://nbviewer.org/github/manish-tripathi/Projects/blob/main/Python%20Customer%20Segmentation%20%26%20Clustering.ipynb",

@@ -20,17 +20,28 @@ const Projects: React.FC = () => {
       <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-700 transition-colors duration-300">
         <div className="flex flex-col md:flex-row min-h-[340px]">
           
-          {/* Image Section - Fixed width on Desktop to prevent stretching */}
-          <div className="w-full md:w-80 shrink-0 h-52 md:h-auto relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-700">
-             <img 
-               src={currentProject.image} 
-               alt={currentProject.title} 
-               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-             />
-             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/5"></div>
+          {/* Image/Video Section - Fixed width on Desktop to prevent stretching */}
+          <div className="w-full md:w-80 shrink-0 h-52 md:h-auto relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-700 bg-black">
+             {currentProject.video ? (
+               <video 
+                 src={currentProject.video}
+                 className="absolute inset-0 w-full h-full object-cover"
+                 autoPlay
+                 loop
+                 muted
+                 playsInline
+               />
+             ) : (
+               <img 
+                 src={currentProject.image} 
+                 alt={currentProject.title} 
+                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+               />
+             )}
+             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/5 pointer-events-none"></div>
              
              {/* Navigation Overlay on Mobile */}
-             <div className="absolute inset-x-0 bottom-4 flex justify-between px-4 md:hidden">
+             <div className="absolute inset-x-0 bottom-4 flex justify-between px-4 md:hidden z-10">
                <button 
                 onClick={(e) => { e.stopPropagation(); prevProject(); }}
                 className="bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white/30 transition-all border border-white/10"
@@ -82,7 +93,7 @@ const Projects: React.FC = () => {
                  rel="noopener noreferrer"
                  className="inline-flex items-center gap-2 text-sm font-bold text-white bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 px-5 py-2.5 rounded-lg transition-colors shadow-sm"
                >
-                 View on GitHub <ArrowRight className="w-4 h-4" />
+                 {currentProject.link.endsWith('.pbix') ? 'Download Dashboard' : 'View on GitHub'} <ArrowRight className="w-4 h-4" />
                </a>
              </div>
           </div>
