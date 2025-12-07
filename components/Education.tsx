@@ -27,9 +27,9 @@ const Education: React.FC = () => {
               <GraduationCap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{edu.degree}</h3>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{edu.institution}</h3>
               <div className="text-lg text-blue-600 dark:text-blue-400 font-medium mt-1">
-                {edu.institution}
+                {edu.degree}
               </div>
             </div>
           </div>
