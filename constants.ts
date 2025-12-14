@@ -2,7 +2,7 @@ import { Job, Education, SkillCategory, Profile, SocialLink, Project } from './t
 
 export const PROFILE: Profile = {
   name: "Manish Tripathi",
-  role: "Lead Data Analyst",
+  role: "Associate Product Manager",
   summary: "Enterprise Data & Transformation Leader with global experience building scalable analytics ecosystems across Europe, APAC, and North America. Blends strategic vision with technical fluency in SQL, Python, and cloud analytics (DBT, Databricks, BigQuery) to align data products with business goals. Led transformation programs driving double-digit gains in retention, conversion, and efficiency, embedding analytical rigor and data-driven culture enterprise-wide.",
   contact: {
     phone: "🇬🇧 +44 7721 910512 | 🇮🇳 +91 9873318106",
@@ -40,7 +40,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
 
 export const EXPERIENCE: Job[] = [
   {
-    role: "Lead Data Analyst",
+    role: "Associate Product Manager",
     company: "Aurora Energy Research",
     companyUrl: "https://auroraer.com/",
     period: "01/2025 - Present",
