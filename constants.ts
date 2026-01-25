@@ -45,12 +45,15 @@ export const EXPERIENCE: Job[] = [
     companyUrl: "https://auroraer.com/",
     period: "01/2025 - Present",
     description: [
-      "Spearheaded the global standardization and rollout of historical market dashboards, enabling enterprise-wide comparability across European power markets. Reduced dashboard delivery cycles from ~2 months to under a week, cutting overall development costs by 70% and accelerating insights delivery.",
-      "Built and led a cross-regional analytics center of excellence in India, scaling from zero to three analysts within six months. Established a repeatable delivery model spanning data ingestion, modeling, QA, and stakeholder alignment—boosting analyst throughput by 3x.",
-      "Partnered with product and engineering teams to harmonize data schemas and time-series models across Japan, the Philippines, Australia, and Europe, improving cross-market interpretability and driving a 25% reduction in redundant analysis efforts.",
-      "Owned the product lifecycle for Aurora’s EOS analytics platform, translating market research objectives into product roadmaps. Leveraged user telemetry to inform development priorities, driving 40% higher stakeholder adoption.",
-      "Acted as a strategic bridge between business leadership, researchers, and engineering, aligning analytical investments with corporate objectives of data democratization and faster decision cycles.",
-      "Drove the integration of analytics workflows into Aurora’s product strategy, positioning the dashboards as a commercial differentiator for client-facing insights."
+      "Own end-to-end product strategy and delivery for Historical Market Dashboards across Aurora's EOS analytics platform, serving enterprise clients and internal research teams with power market intelligence spanning Europe, APAC, and Americas.",
+      "Scaled product coverage by 400%+ in 12 months, launching dashboards for Europe, Australia, Japan, and Korea. Defined what data to include for each market: day-ahead/intraday pricing, demand, generation, and ancillary services (aFRR, mFRR, FCR, replacement reserves)—making historical data a key selling point for client acquisition.",
+      "Reduced delivery time by 50% (8 weeks to 4 weeks) by reorganizing how we build products—separated data collection, processing, and visualization into distinct steps with clear ownership. Established sprint-based delivery, enabling faster response to customer requests.",
+      "Built India-based product team (0→3 analysts in 6 months), designing onboarding processes, quality standards, and collaboration protocols. Enabled global product delivery across time zones while maintaining quality and speed.",
+      "Standardized products across geographies, creating consistent data structures and templates that work across multiple markets. This lets the team launch new markets faster (currently rolling out Philippines)—same approach, different geography—reducing duplicate work.",
+      "Lead product discovery and requirements gathering with research teams, commercial stakeholders, and engineering. Translate what markets they need into concrete product specs, manage external data vendors, and define quality standards for outputs.",
+      "Managed migration from old to new data processing system, planned the transition to avoid breaking live customer dashboards, coordinated with engineering, and tested thoroughly before switching over production systems.",
+      "Designed data processing infrastructure handling 100+ market sources, using YAML configuration files to automatically standardize data across different time formats. Feeds into platform APIs, research reports, and forecasting tools.",
+      "Work with senior leadership on 6–12 month product roadmap, balancing new market launches, system improvements, and customer feature requests. Align historical data products with company goals around making data more accessible."
     ]
   },
   {
