@@ -86,9 +86,6 @@ const Experience: React.FC = () => {
                             </div>
                           </div>
                         </div>
-                        <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 flex-shrink-0">
-                          Promoted
-                        </span>
                       </div>
                     </div>
 
