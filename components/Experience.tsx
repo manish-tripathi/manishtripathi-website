@@ -1,140 +1,90 @@
 import React, { useState } from 'react';
 import { EXPERIENCE } from '../constants';
-import { Briefcase, Calendar, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, ExternalLink, ChevronDown } from 'lucide-react';
 
 const Experience: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState<'left' | 'right'>('right');
-  const [animKey, setAnimKey] = useState(0);
-
-  const nextJob = () => {
-    setDirection('right');
-    setAnimKey(prev => prev + 1);
-    setCurrentIndex((prev) => (prev + 1) % EXPERIENCE.length);
-  };
-
-  const prevJob = () => {
-    setDirection('left');
-    setAnimKey(prev => prev + 1);
-    setCurrentIndex((prev) => (prev - 1 + EXPERIENCE.length) % EXPERIENCE.length);
-  };
-
-  const job = EXPERIENCE[currentIndex];
+  const [expandedIndex, setExpandedIndex] = useState(0);
 
   return (
-    <div className="relative group">
+    <div className="relative">
+      {/* Vertical timeline line */}
+      <div className="absolute left-[1.375rem] top-8 bottom-8 w-px bg-gradient-to-b from-blue-500/60 via-violet-500/30 to-transparent pointer-events-none" />
 
-      <div className="bg-white dark:bg-slate-800/50 p-6 md:p-8 rounded-xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm hover:shadow-lg transition-all duration-300 backdrop-blur-sm min-h-[450px] flex flex-col">
+      <div className="space-y-3">
+        {EXPERIENCE.map((job, idx) => {
+          const isExpanded = expandedIndex === idx;
+          return (
+            <div key={idx} className="relative pl-14">
+              {/* Timeline dot */}
+              <div
+                className={`absolute left-[0.875rem] top-6 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
+                  isExpanded
+                    ? 'bg-blue-500 border-blue-500 shadow-md shadow-blue-500/40'
+                    : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600'
+                }`}
+              />
 
-        <div
-          key={animKey}
-          className={direction === 'right' ? 'animate-slide-right' : 'animate-slide-left'}
-        >
-          {/* Header Section */}
-          <div className="flex flex-col md:flex-row md:items-start justify-between mb-6 gap-4">
-            <div className="flex gap-4">
-              <div className="mt-1 w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Briefcase className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{job.role}</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  {job.companyUrl ? (
-                    <a
-                      href={job.companyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-lg text-blue-600 dark:text-blue-400 font-medium hover:underline inline-flex items-center gap-1"
-                    >
-                      {job.company}
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  ) : (
-                    <h4 className="text-lg text-slate-600 dark:text-slate-300 font-medium">{job.company}</h4>
-                  )}
-                </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                {/* Accordion header — always visible */}
+                <button
+                  onClick={() => setExpandedIndex(isExpanded ? -1 : idx)}
+                  className="w-full text-left p-5 flex items-start justify-between gap-4"
+                  aria-expanded={isExpanded}
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white">{job.role}</h3>
+                      {idx === 0 && (
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800/50">
+                          Current
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 text-sm">
+                      {job.companyUrl ? (
+                        <a
+                          href={job.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
+                          className="text-blue-600 dark:text-blue-400 font-medium hover:underline inline-flex items-center gap-1"
+                        >
+                          {job.company}
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        <span className="text-slate-600 dark:text-slate-400 font-medium">{job.company}</span>
+                      )}
+                      <span className="text-slate-300 dark:text-slate-600" aria-hidden>•</span>
+                      <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                        <Calendar className="w-3 h-3" />
+                        {job.period}
+                      </span>
+                    </div>
+                  </div>
+                  <ChevronDown
+                    className={`w-5 h-5 text-slate-400 flex-shrink-0 mt-1 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                {/* Expandable bullet points */}
+                {isExpanded && (
+                  <div className="px-5 pb-5 border-t border-slate-100 dark:border-slate-700/50">
+                    <ul className="space-y-2.5 mt-4">
+                      {job.description.map((desc, i) => (
+                        <li key={i} className="flex gap-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                          <span className="mt-[0.4rem] w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0" />
+                          <span>{desc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
-
-            <div className="flex flex-col md:items-end gap-2 ml-16 md:ml-0">
-              <div className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700/50 px-3 py-1 rounded-full">
-                <Calendar className="w-3.5 h-3.5" />
-                {job.period}
-              </div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                Role {currentIndex + 1} / {EXPERIENCE.length}
-              </div>
-            </div>
-          </div>
-
-          {/* Description List */}
-          <ul className="space-y-3 pl-2 md:pl-4 flex-grow">
-            {job.description.map((desc, i) => (
-              <li key={i} className="flex gap-3 text-slate-600 dark:text-slate-300 leading-relaxed text-sm md:text-base">
-                <span className="mt-2 w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0"></span>
-                <span>{desc}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Mobile Navigation Controls */}
-        <div className="flex justify-between items-center mt-6 md:hidden">
-            <button
-            onClick={prevJob}
-            className="p-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/50"
-            >
-            <ChevronLeft className="w-5 h-5" />
-            </button>
-            <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                {currentIndex + 1} of {EXPERIENCE.length}
-            </span>
-            <button
-            onClick={nextJob}
-            className="p-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/50"
-            >
-            <ChevronRight className="w-5 h-5" />
-            </button>
-        </div>
+          );
+        })}
       </div>
-
-      {/* Desktop Navigation Arrows (Floating) */}
-      <button
-        onClick={prevJob}
-        className="hidden md:flex absolute top-1/2 -left-5 lg:-left-6 -translate-y-1/2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-3 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-800 transition-all z-10"
-        aria-label="Previous Role"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-
-      <button
-        onClick={nextJob}
-        className="hidden md:flex absolute top-1/2 -right-5 lg:-right-6 -translate-y-1/2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-3 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-800 transition-all z-10"
-        aria-label="Next Role"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-
-      {/* Pagination Dots */}
-      <div className="hidden md:flex justify-center gap-2 mt-6">
-        {EXPERIENCE.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => {
-              setDirection(idx > currentIndex ? 'right' : 'left');
-              setAnimKey(prev => prev + 1);
-              setCurrentIndex(idx);
-            }}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              idx === currentIndex
-                ? 'bg-gradient-to-r from-blue-500 to-violet-500 w-8'
-                : 'bg-slate-300 dark:bg-slate-600 w-2 hover:bg-slate-400 dark:hover:bg-slate-500'
-            }`}
-            aria-label={`Go to role ${idx + 1}`}
-          />
-        ))}
-      </div>
-
     </div>
   );
 };

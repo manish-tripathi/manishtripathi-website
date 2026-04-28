@@ -119,17 +119,33 @@ export const EDUCATION: Education[] = [
 
 export const SKILLS: SkillCategory[] = [
   {
-    category: "Technical & Tools",
+    category: "Product Management",
+    skills: [
+      { name: "Product Strategy & Roadmapping", level: "Advanced" },
+      { name: "Stakeholder Management", level: "Advanced" },
+      { name: "Requirements Gathering", level: "Advanced" },
+      { name: "Agile / Sprint Planning", level: "Intermediate" },
+      { name: "User Research & Discovery", level: "Intermediate" },
+      { name: "Cross-functional Leadership", level: "Advanced" },
+    ]
+  },
+  {
+    category: "Analytics & Visualisation",
     skills: [
       { name: "Business Analytics", level: "Advanced" },
-      { name: "Microsoft Excel", level: "Advanced" },
-      { name: "SQL", level: "Intermediate" },
       { name: "Power BI", level: "Intermediate" },
-      { name: "Python", level: "Intermediate" },
+      { name: "Microsoft Excel", level: "Advanced" },
       { name: "R", level: "Intermediate" },
-      { name: "Databricks", level: "Intermediate" },
+    ]
+  },
+  {
+    category: "Data Engineering & Cloud",
+    skills: [
+      { name: "SQL", level: "Intermediate" },
+      { name: "Python", level: "Intermediate" },
       { name: "DBT", level: "Intermediate" },
       { name: "BigQuery", level: "Intermediate" },
+      { name: "Databricks", level: "Intermediate" },
       { name: "Snowflake", level: "Basic" },
     ]
   }

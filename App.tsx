@@ -8,17 +8,14 @@ import Education from './components/Education';
 import ProjectsGrid from './components/ProjectsGrid';
 import ResumeView from './components/ResumeView';
 import AnimateIn from './components/AnimateIn';
-import { SOCIAL_LINKS } from './constants';
-import { Layers, Briefcase, GraduationCap, Linkedin, Github, Mail, Calendar, Globe } from 'lucide-react';
+import { PROFILE, SOCIAL_LINKS } from './constants';
+import { Layers, Briefcase, GraduationCap } from 'lucide-react';
+import { getSocialIcon } from './utils/icons';
 
-const getSocialIcon = (platform: string) => {
-  switch (platform.toLowerCase()) {
-    case 'linkedin': return <Linkedin className="w-4 h-4" />;
-    case 'github': return <Github className="w-4 h-4" />;
-    case 'email': return <Mail className="w-4 h-4" />;
-    case 'calendly': return <Calendar className="w-4 h-4" />;
-    default: return <Globe className="w-4 h-4" />;
-  }
+const getInitialTheme = (): boolean => {
+  const stored = localStorage.getItem('theme');
+  if (stored !== null) return stored === 'dark';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
 
 // Layout component that wraps pages with Navbar and Footer
@@ -41,11 +38,11 @@ const MainLayout: React.FC<{ isDark: boolean, toggleTheme: () => void }> = ({ is
             <div className="text-center md:text-left">
               <div className="text-lg font-extrabold mb-1">
                 <span className="gradient-text bg-gradient-to-r from-blue-600 to-violet-600">
-                  Manish Tripathi
+                  {PROFILE.name}
                 </span>
               </div>
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                Associate Product Manager
+                {PROFILE.role}
               </p>
             </div>
 
@@ -68,10 +65,10 @@ const MainLayout: React.FC<{ isDark: boolean, toggleTheme: () => void }> = ({ is
             {/* Right: Copyright */}
             <div className="text-center md:text-right">
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                &copy; {new Date().getFullYear()} Manish Tripathi
+                &copy; {new Date().getFullYear()} {PROFILE.name}
               </p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
-                Built with React, TypeScript & Tailwind CSS
+                Built with React, TypeScript &amp; Tailwind CSS
               </p>
             </div>
           </div>
@@ -130,18 +127,14 @@ const HomePage: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  // Initialize to true for default Dark Mode
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(getInitialTheme);
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
-  const toggleTheme = () => setIsDark(!isDark);
+  const toggleTheme = () => setIsDark(prev => !prev);
 
   return (
     <Router>

@@ -21,7 +21,7 @@ const ProjectsGrid: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {PROJECTS.map((project, idx) => (
-          <AnimateIn key={idx} animation="fade-up" delay={idx * 100} className="flex">
+          <AnimateIn key={project.title} animation="fade-up" delay={Math.min(idx * 100, 400)} className="flex">
             <div
               className="group flex flex-col bg-white dark:bg-slate-800/50 rounded-xl overflow-hidden border border-slate-200/50 dark:border-slate-700/50 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-300/50 dark:hover:border-blue-700/50 hover:-translate-y-1.5 transition-all duration-300 w-full"
             >
