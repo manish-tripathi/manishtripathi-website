@@ -2,7 +2,7 @@ import { Job, Education, SkillCategory, Profile, SocialLink, Project } from './t
 
 export const PROFILE: Profile = {
   name: "Manish Tripathi",
-  role: "Associate Product Manager",
+  role: "Product Manager",
   summary: "Enterprise Data & Transformation Leader with global experience building scalable analytics ecosystems across Europe, APAC, and North America. Blends strategic vision with technical fluency in SQL, Python, and cloud analytics (DBT, Databricks, BigQuery) to align data products with business goals. Led transformation programs driving double-digit gains in retention, conversion, and efficiency, embedding analytical rigor and data-driven culture enterprise-wide.",
   contact: {
     phone: "🇬🇧 +44 7721 910512 | 🇮🇳 +91 9873318106",
@@ -40,20 +40,29 @@ export const SOCIAL_LINKS: SocialLink[] = [
 
 export const EXPERIENCE: Job[] = [
   {
+    role: "Product Manager",
+    company: "Aurora Energy Research",
+    companyUrl: "https://auroraer.com/",
+    period: "01/2026 - Present",
+    description: [
+      "Own end-to-end product strategy and delivery for Historical Market Dashboards across Aurora's EOS analytics platform, serving enterprise clients and internal research teams with power market intelligence spanning Europe, APAC, and Americas.",
+      "Lead product discovery and requirements gathering with research teams, commercial stakeholders, and engineering. Translate market needs into concrete product specs, manage external data vendors, and define quality standards for outputs.",
+      "Drive new market expansion, currently rolling out the Philippines using standardised templates—applying the same approach across different geographies to reduce duplicate work and accelerate launches.",
+      "Partner with senior leadership on the 6–12 month product roadmap, balancing new market launches, system improvements, and customer feature requests. Align historical data products with company goals around making data more accessible."
+    ]
+  },
+  {
     role: "Associate Product Manager",
     company: "Aurora Energy Research",
     companyUrl: "https://auroraer.com/",
-    period: "01/2025 - Present",
+    period: "01/2025 - 01/2026",
     description: [
-      "Own end-to-end product strategy and delivery for Historical Market Dashboards across Aurora's EOS analytics platform, serving enterprise clients and internal research teams with power market intelligence spanning Europe, APAC, and Americas.",
-      "Scaled product coverage by 400%+ in 12 months, launching dashboards for Europe, Australia, Japan, and Korea. Defined what data to include for each market: day-ahead/intraday pricing, demand, generation, and ancillary services (aFRR, mFRR, FCR, replacement reserves)—making historical data a key selling point for client acquisition.",
-      "Reduced delivery time by 50% (8 weeks to 4 weeks) by reorganizing how we build products—separated data collection, processing, and visualization into distinct steps with clear ownership. Established sprint-based delivery, enabling faster response to customer requests.",
-      "Built India-based product team (0→3 analysts in 6 months), designing onboarding processes, quality standards, and collaboration protocols. Enabled global product delivery across time zones while maintaining quality and speed.",
-      "Standardized products across geographies, creating consistent data structures and templates that work across multiple markets. This lets the team launch new markets faster (currently rolling out Philippines)—same approach, different geography—reducing duplicate work.",
-      "Lead product discovery and requirements gathering with research teams, commercial stakeholders, and engineering. Translate what markets they need into concrete product specs, manage external data vendors, and define quality standards for outputs.",
-      "Managed migration from old to new data processing system, planned the transition to avoid breaking live customer dashboards, coordinated with engineering, and tested thoroughly before switching over production systems.",
-      "Designed data processing infrastructure handling 100+ market sources, using YAML configuration files to automatically standardize data across different time formats. Feeds into platform APIs, research reports, and forecasting tools.",
-      "Work with senior leadership on 6–12 month product roadmap, balancing new market launches, system improvements, and customer feature requests. Align historical data products with company goals around making data more accessible."
+      "Scaled product coverage by 400%+ in 12 months, launching dashboards for Europe, Australia, Japan, and Korea. Defined data scope for each market: day-ahead/intraday pricing, demand, generation, and ancillary services (aFRR, mFRR, FCR, replacement reserves)—making historical data a key selling point for client acquisition.",
+      "Reduced delivery time by 50% (8 weeks to 4 weeks) by separating data collection, processing, and visualisation into distinct steps with clear ownership. Established sprint-based delivery, enabling faster response to customer requests.",
+      "Built India-based product team from 0 to 3 analysts in 6 months, designing onboarding processes, quality standards, and collaboration protocols. Enabled global product delivery across time zones while maintaining quality and speed.",
+      "Standardised products across geographies, creating consistent data structures and templates that worked across multiple markets—reducing duplicate work and enabling repeatable launches.",
+      "Managed migration from legacy to new data processing system, coordinating with engineering to avoid disruption to live customer dashboards and testing thoroughly before production cutover.",
+      "Designed data processing infrastructure handling 100+ market sources, using YAML configuration files to automatically standardise data across different time formats, feeding into platform APIs, research reports, and forecasting tools."
     ]
   },
   {
