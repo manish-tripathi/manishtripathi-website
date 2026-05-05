@@ -17,6 +17,7 @@ const SECTIONS = [
 
 const App: React.FC = () => {
   const [current, setCurrent] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
   const scRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<HTMLElement[]>([]);
 
@@ -32,21 +33,18 @@ const App: React.FC = () => {
     const refs = SECTIONS.map(s => document.getElementById(s.id) as HTMLElement);
     sectionRefs.current = refs;
 
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting && e.intersectionRatio > 0.5) {
-          setCurrent(refs.indexOf(e.target as HTMLElement));
-        }
-      });
-    }, { root: sc, threshold: 0.5 });
-    refs.forEach(r => r && io.observe(r));
+    const onScroll = () => {
+      const idx = Math.round(sc.scrollTop / sc.clientHeight);
+      setCurrent(Math.max(0, Math.min(idx, SECTIONS.length - 1)));
+    };
+    sc.addEventListener('scroll', onScroll, { passive: true });
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); setCurrent(c => { goTo(c + 1); return c; }); }
       if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); setCurrent(c => { goTo(c - 1); return c; }); }
     };
     window.addEventListener('keydown', onKey);
-    return () => { io.disconnect(); window.removeEventListener('keydown', onKey); };
+    return () => { sc.removeEventListener('scroll', onScroll); window.removeEventListener('keydown', onKey); };
   }, []);
 
   const isDark = SECTIONS[current]?.darkBg ?? true;
@@ -63,7 +61,26 @@ const App: React.FC = () => {
             </button>
           ))}
         </div>
+        <button className={`hamburger${menuOpen ? ' open' : ''}${current > 0 ? ' scrolled' : ''}`} onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
+          <span /><span /><span />
+        </button>
       </nav>
+
+      {/* MOBILE MENU DRAWER */}
+      {menuOpen && (
+        <div className="mobile-drawer" onClick={() => setMenuOpen(false)}>
+          <div className="mobile-drawer-inner" onClick={e => e.stopPropagation()}>
+            <div className="mobile-drawer-logo">M<span>.</span>T</div>
+            {SECTIONS.map((s, i) => (
+              <button key={s.id} className={`mobile-nav-btn${i === current ? ' active' : ''}${s.id === 's6' ? ' mobile-hire' : ''}`}
+                onClick={() => { goTo(i); setMenuOpen(false); }}>
+                <span className="mobile-nav-num">0{i + 1}</span>
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* SIDE DOTS */}
       <div className="side-nav">

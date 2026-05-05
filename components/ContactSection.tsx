@@ -1,11 +1,12 @@
 import React from 'react';
+import { Calendar, Mail, Linkedin, Github } from 'lucide-react';
 import { EDUCATION } from '../constants';
 
 const LINKS = [
-  { icon: '📅', label: 'Schedule via Calendly', sub: 'Book a 30-minute call', href: 'https://calendly.com/maneeshtripathi/30min' },
-  { icon: '@',  label: 'maneeshtripathi@gmail.com', sub: 'Email directly', href: 'mailto:maneeshtripathi@gmail.com' },
-  { icon: 'in', label: 'LinkedIn', sub: 'linkedin.com/in/maneeshtripathi', href: 'https://linkedin.com/in/maneeshtripathi/' },
-  { icon: 'gh', label: 'GitHub',   sub: 'github.com/manish-tripathi', href: 'https://github.com/manish-tripathi' },
+  { icon: Calendar, label: 'Schedule via Calendly', sub: 'Book a 30-minute call',            href: 'https://calendly.com/maneeshtripathi/30min' },
+  { icon: Mail,     label: 'maneeshtripathi@gmail.com', sub: 'Email directly',               href: 'mailto:maneeshtripathi@gmail.com' },
+  { icon: Linkedin, label: 'LinkedIn',                  sub: 'linkedin.com/in/maneeshtripathi', href: 'https://linkedin.com/in/maneeshtripathi/' },
+  { icon: Github,   label: 'GitHub',                    sub: 'github.com/manish-tripathi',   href: 'https://github.com/manish-tripathi' },
 ];
 
 const ContactSection: React.FC = () => (
@@ -17,17 +18,20 @@ const ContactSection: React.FC = () => (
         Open to senior product and data leadership roles, advisory conversations, and consulting — particularly at the intersection of analytics and enterprise software.
       </p>
       <div className="s6-links">
-        {LINKS.map(l => (
-          <a key={l.label} href={l.href} target="_blank" rel="noreferrer">
-            <div className="s6-link">
-              <div className="s6-link-icon">{l.icon}</div>
-              <div>
-                <div className="s6-link-label">{l.label}</div>
-                <div className="s6-link-sub">{l.sub}</div>
+        {LINKS.map(l => {
+          const Icon = l.icon;
+          return (
+            <a key={l.label} href={l.href} target="_blank" rel="noreferrer">
+              <div className="s6-link">
+                <div className="s6-link-icon"><Icon size={15} strokeWidth={2} /></div>
+                <div>
+                  <div className="s6-link-label">{l.label}</div>
+                  <div className="s6-link-sub">{l.sub}</div>
+                </div>
               </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          );
+        })}
       </div>
     </div>
     <div className="s6-right">

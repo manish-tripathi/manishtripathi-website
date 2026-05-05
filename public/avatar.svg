@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280">
+  <rect width="280" height="280" fill="#2B1F0D"/>
+  <!-- body silhouette -->
+  <ellipse cx="140" cy="285" rx="110" ry="85" fill="#3A2910"/>
+  <!-- head -->
+  <circle cx="140" cy="102" r="60" fill="#3A2910"/>
+  <!-- subtle initials -->
+  <text x="140" y="120" font-family="Georgia, serif" font-size="46"
+        fill="rgba(255,255,255,0.18)" text-anchor="middle" font-style="italic">MT</text>
+</svg>

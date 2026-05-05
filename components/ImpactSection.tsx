@@ -8,10 +8,10 @@ const WINS = [
 ];
 
 const PROJECTS = [
-  { idx: '01', chip: 'Aurora · Product',        chipClass: 'chip-p', name: 'Power Market Intelligence Platform',    metric: '400%', label: 'Coverage growth' },
-  { idx: '02', chip: 'Amplify · DBT · BigQuery', chipClass: 'chip-d', name: 'Multi-Channel Marketing Data Pipeline', metric: '25%',  label: 'Media efficiency' },
-  { idx: '03', chip: 'Amplify · Databricks · ML',chipClass: 'chip-m', name: 'Customer Intelligence & LTV Platform',  metric: '20%',  label: 'Conversions' },
-  { idx: '04', chip: 'SkillGigs · Growth',       chipClass: 'chip-p', name: 'Marketplace Growth & Retention Engine', metric: '25%',  label: 'Higher conversions' },
+  { idx: '01', chip: 'Aurora · Product',         chipClass: 'chip-p', name: 'Power Market Intelligence Platform',    metric: '400%', label: 'Coverage growth',   href: 'https://auroraer.com/' },
+  { idx: '02', chip: 'Amplify · DBT · BigQuery',  chipClass: 'chip-d', name: 'Multi-Channel Marketing Data Pipeline', metric: '25%',  label: 'Media efficiency', href: 'https://amplifyanalytix.com/' },
+  { idx: '03', chip: 'Amplify · Databricks · ML', chipClass: 'chip-m', name: 'Customer Intelligence & LTV Platform',  metric: '20%',  label: 'Conversions',      href: 'https://amplifyanalytix.com/' },
+  { idx: '04', chip: 'SkillGigs · Growth',        chipClass: 'chip-p', name: 'Marketplace Growth & Retention Engine', metric: '25%',  label: 'Higher conversions', href: 'https://skillgigs.com/' },
 ];
 
 const ImpactSection: React.FC = () => (
@@ -28,11 +28,11 @@ const ImpactSection: React.FC = () => (
     <div className="s3-bottom">
       <div className="s3-hdr">
         <div className="s3-hdr-title">Featured Projects</div>
-        <div className="s3-hdr-sub">04 impact stories</div>
+        <div className="s3-hdr-sub">4 impact stories</div>
       </div>
       <div className="proj-rows">
         {PROJECTS.map(p => (
-          <div className="proj-r" key={p.idx}>
+          <a key={p.idx} className="proj-r" href={p.href} target="_blank" rel="noreferrer">
             <div className="proj-r-idx">{p.idx}</div>
             <div>
               <div className={`proj-r-chip ${p.chipClass}`}>{p.chip}</div>
@@ -43,7 +43,7 @@ const ImpactSection: React.FC = () => (
               <div className="proj-r-label">{p.label}</div>
               <div className="proj-r-arrow">↗</div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>

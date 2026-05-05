@@ -25,7 +25,7 @@ const ExperienceSection: React.FC = () => {
           <div>
             <div className="exp-panel-role">{e.role}</div>
             <div className="exp-panel-co">
-              {e.company}
+              <a href={e.companyUrl} target="_blank" rel="noreferrer" className="exp-panel-co-link">{e.company}</a>
               {active === 0 && <span className="exp-panel-note"> — Promoted from APM · Jan 2026</span>}
             </div>
           </div>
@@ -49,6 +49,11 @@ const ExperienceSection: React.FC = () => {
               {e.tags.map((t: string, i: number) => <span className="etag" key={i}>{t}</span>)}
             </div>
           )}
+          <div className="exp-cta-row">
+            <a href="mailto:maneeshtripathi@gmail.com" className="exp-cta-link">Get in touch →</a>
+            <span className="exp-cta-sep">·</span>
+            <a href="https://linkedin.com/in/maneeshtripathi/" target="_blank" rel="noreferrer" className="exp-cta-link">View LinkedIn profile →</a>
+          </div>
         </div>
       </div>
       <div className="sec-num dark">04 — Experience</div>
