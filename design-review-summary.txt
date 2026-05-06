@@ -1,0 +1,402 @@
+================================================================================
+  DESIGN REVIEW SUMMARY — Manish Tripathi Portfolio Website
+  Reviewed by: Claude Code (UX/UI Expert Mode)
+  Date: 2026-05-05
+================================================================================
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 1 — UX/UI DESIGN REVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TECH STACK
+  React 18 + TypeScript + Vite + Custom CSS (no Tailwind in final version)
+  6 fullscreen scroll-snap sections: Hero · About · Impact · Experience · Skills · Contact
+  Fonts: Instrument Serif (display) + DM Sans (body)
+  All content driven from constants.ts
+
+OVERALL IMPRESSION
+  Strong editorial aesthetic with a distinctive terra-cotta + gold + near-black
+  palette. The typography pairing is excellent. However, several critical bugs
+  and structural UX problems undermine the design at first glance.
+
+────────────────────────────────────────────────────────────────────────────────
+CRITICAL ISSUES (Broken Functionality)
+────────────────────────────────────────────────────────────────────────────────
+
+1. NAV ACTIVE STATE STUCK ON "HOME" — ALL SECTIONS
+   The navigation always shows "HOME" highlighted and the section counter always
+   reads "01 / 06" regardless of which section is visible.
+
+   Root cause: App.tsx uses IntersectionObserver with threshold: 0.5 on the
+   #sc scroll container. Because each .snap section is exactly 100vh, the
+   intersection ratio calculation doesn't reliably fire when sections snap.
+
+   Code location: App.tsx lines 35–42
+     const io = new IntersectionObserver((entries) => {
+       entries.forEach(e => {
+         if (e.isIntersecting && e.intersectionRatio > 0.5) {
+           setCurrent(refs.indexOf(e.target as HTMLElement));
+         }
+       });
+     }, { root: sc, threshold: 0.5 });
+
+   Fix: Switch to threshold: [0, 0.5, 1] or compute active index from
+        scrollTop / innerHeight on the scroll event instead.
+
+2. PROFILE PHOTO BROKEN — ABOUT SECTION (S2)
+   The left About sidebar shows a broken image icon. The URL
+   https://github.com/manish-tripathi.png returns a 404.
+   Impact: The entire left dark panel becomes a blank column with a broken icon
+   immediately after the hero — visually jarring and unprofessional.
+
+   Code location: AboutSection.tsx line 7
+     <img src="https://github.com/manish-tripathi.png" alt="Manish Tripathi" />
+
+   Fix: Host the photo locally in public/ or use a reliable CDN link.
+        Never depend on a third-party URL for a critical hero asset.
+
+3. MOBILE NAV OVERFLOWS — SKILLS AND CONTACT UNREACHABLE
+   On 390px viewport, the nav renders all 6 items inline. "SKILLS" and
+   "CONTACT" are clipped off-screen with no way to access them in the nav.
+   A mobile visitor literally cannot reach the Contact section via navigation.
+
+   Fix: Implement a hamburger/drawer menu below ~768px breakpoint.
+
+────────────────────────────────────────────────────────────────────────────────
+HIGH SEVERITY ISSUES
+────────────────────────────────────────────────────────────────────────────────
+
+4. MASSIVE UNUSED WHITESPACE — EXPERIENCE (S4) AND SKILLS (S5)
+   Both sections fill roughly 55–60% of the viewport height, leaving a large
+   blank void at the bottom. The content is sparse relative to the 100vh
+   container enforced by scroll-snap.
+
+   Fix S4 (Experience): Add a "Download Resume" CTA in the dead space, or
+   display all 4 jobs in an accordion to show more content simultaneously.
+
+   Fix S5 (Skills): Add proficiency level indicators (bars or badges) per skill,
+   or add a "Currently Learning" block to fill the column height.
+
+5. PROJECT ROWS APPEAR CLICKABLE BUT DO NOTHING — IMPACT (S3)
+   Each project row has an ↗ arrow and a hover cursor + background transition,
+   strongly implying it is a link. Clicking does nothing — no href, no onClick,
+   no navigation is wired up.
+
+   Code location: ImpactSection.tsx lines 35–48
+   Fix: Wrap each row in an <a> tag using the matching URL from PROJECTS in
+        constants.ts, or remove the hover state and arrow if decorative.
+
+6. MOBILE HERO — BOTTOM INFO BAR OVERLAPS CTAs (S1 MOBILE)
+   The .hero-bar (position: absolute; bottom: 0) overlaps with the CTA buttons
+   on narrow viewports. The single-column mobile layout doesn't account for the
+   absolute-positioned bar consuming bottom space.
+
+   Fix: Set .hero-bar to display: none on mobile or move it into normal
+        document flow after the CTAs.
+
+7. M.T LOGO DISAPPEARS ON SKILLS SECTION (S5)
+   The logo appears as two tiny broken squares/dots when first rendering the
+   Skills section. This is a web font race condition — Instrument Serif hasn't
+   loaded before the browser paints the nav logo on that section.
+
+   Fix: Ensure the Georgia/serif fallback in --ff-d renders visibly at the
+        same size. The font-display: swap is already in the Google Fonts URL,
+        but the CSS fallback stack needs to match metrics closely enough that
+        the text remains readable during font load.
+
+────────────────────────────────────────────────────────────────────────────────
+MEDIUM SEVERITY ISSUES
+────────────────────────────────────────────────────────────────────────────────
+
+8. HERO SUBTEXT CONTRAST TOO LOW
+   .hero-sub uses rgba(255,255,255,.5) — technically ~8.5:1 (AAA) by calculation,
+   but visually feels washed out on lower-brightness screens and dim environments.
+   The surrounding muted feel undercuts the strong headline.
+
+   Fix: Raise to .65–.70 opacity for a crisper reading experience without
+        losing the layered depth aesthetic.
+
+9. TEXT-BASED ICONS IN CONTACT SECTION (S6)
+   Contact link icons use plain text: 📅, @, "in", "gh" inside 32px circles.
+   The emoji is inconsistent with the text-only abbreviations and none of them
+   read as professional icon replacements.
+
+   Fix: Add a small icons.tsx with 4 inline SVGs (LinkedIn, GitHub, Email,
+        Calendly). This single change significantly lifts the polish of S6.
+
+10. MANDATORY SCROLL-SNAP CUTS OFF LONG CONTENT
+    scroll-snap-type: y mandatory means a user on a short screen reading the
+    Experience bullet list gets snapped to the Skills section if they scroll
+    even slightly past the boundary — before finishing reading.
+
+    Fix: Switch to scroll-snap-type: y proximity. This allows free scrolling
+         within a section while still snapping at natural stopping points.
+
+11. "SEE MY WORK" BUTTON SKIPS THE ABOUT SECTION
+    The primary hero CTA calls goTo(2), navigating to Impact (s3), bypassing
+    the About section (s2) which contains the personal narrative.
+
+    Fix: Either rename the button to "See My Impact →" to accurately describe
+         the destination, or send it to goTo(1) and rename it "Learn More →".
+
+12. ABOUT SECTION LEFT PANEL TEXT NEARLY UNREADABLE
+    .diff-body uses rgba(255,255,255,.4) on --ink2 background. The three
+    differentiator cards ("I speak both languages", "Evidence over opinion",
+    "Global by default") have body text that is very hard to read.
+
+    Fix: Raise .diff-body opacity from .4 to at least .60.
+
+────────────────────────────────────────────────────────────────────────────────
+LOW SEVERITY / POLISH ISSUES
+────────────────────────────────────────────────────────────────────────────────
+
+13. SIDE NAV DOTS ARE 5px — FAIL TOUCH TARGET MINIMUMS
+    .sdot is width: 5px; height: 5px. Apple HIG recommends 44×44px minimum.
+    Fix: Keep visual size at 5px but add padding: 16px to the button element.
+
+14. SECTION NUMBERS ARE NEARLY INVISIBLE
+    .sec-num uses rgba(255,255,255,.18) — effectively invisible in screenshots.
+    Value is already duplicated by side dots and arrow counter.
+    Fix: Raise to .35 opacity or remove entirely.
+
+15. NO LINK TO RESUME/PDF FROM MAIN NAV
+    ResumeView.tsx exists and is print-optimized but is linked from nowhere in
+    the main site. Recruiters commonly look for a download CV button.
+    Fix: Add a "Resume" nav item or a secondary CTA on the hero section.
+
+16. "04 IMPACT STORIES" LABEL READS AS A SECTION NUMBER
+    The subheading next to "Featured Projects" reads "04 impact stories" with a
+    leading zero, making it look like a section index rather than a count.
+    Fix: Use "4 impact stories" (no leading zero) or "04 Featured Projects".
+
+────────────────────────────────────────────────────────────────────────────────
+FULL ISSUE PRIORITY TABLE
+────────────────────────────────────────────────────────────────────────────────
+
+ #  Issue                                          Section      Severity
+────────────────────────────────────────────────────────────────────────────────
+ 1  Nav active always HOME, counter stuck at 01    All          Critical
+ 2  Profile photo 404 / broken image               About        Critical
+ 3  Mobile nav clips Skills + Contact off-screen   All mobile   Critical
+ 4  Massive whitespace on Experience + Skills       S4, S5       High
+ 5  Project rows clickable but do nothing          S3           High
+ 6  Mobile hero bottom bar overlaps CTAs           S1 mobile    High
+ 7  M.T logo disappears during font load           S5           High
+ 8  Hero subtext feels washed out (50% opacity)    S1           Medium
+ 9  Text-based icons unprofessional in Contact     S6           Medium
+10  Mandatory snap cuts off long content mid-read  S4           Medium
+11  "See My Work" skips About section              S1           Medium
+12  About left panel diff-body barely readable     S2           Medium
+13  Side nav dots 5px, fail touch target minimum   All          Low
+14  Section numbers nearly invisible               All          Low
+15  No link to Resume/PDF anywhere in site         Nav          Low
+16  "04 IMPACT STORIES" reads as section number    S3           Low
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 2 — COLOR SCHEME REVIEW & RECOMMENDATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CURRENT PALETTE (10 tokens, OKLCH color space)
+────────────────────────────────────────────────────────────────────────────────
+
+  Token      Value                    Approx Visual         Role
+  ─────────  ───────────────────────  ────────────────────  ──────────────────
+  --ink      oklch(13% 0.016 55)      Very dark warm black  Dark section bgs
+  --ink2     oklch(20% 0.018 55)      Dark warm brown       About sidebar bg
+  --muted    oklch(52% 0.012 60)      Medium gray-brown     Body text (light)
+  --faint    oklch(78% 0.008 60)      Light warm gray       Secondary labels
+  --border   oklch(88% 0.010 70)      Very light warm       Dividers, borders
+  --warm     oklch(93% 0.018 75)      Warm beige            Experience bg
+  --cream    oklch(97% 0.012 75)      Warm off-white        Skills bg
+  --terra    oklch(63% 0.18 44)       Burnt orange          Primary accent
+  --terra2   oklch(88% 0.09 44)       Light peach           Accent tint
+  --gold     oklch(78% 0.16 82)       Amber/gold            Stats, headlines
+
+WCAG CONTRAST ANALYSIS
+────────────────────────────────────────────────────────────────────────────────
+
+  Text Usage                              Contrast   WCAG Result
+  ─────────────────────────────────────   ────────   ──────────────────────
+  Hero sub text (.50 white on --ink)       8.54:1    ✅ AAA
+  Hero stat labels (.35 white on --ink)    6.28:1    ✅ AA
+  About diff-body (.40 white on --ink2)    5.65:1    ✅ AA
+  Impact win description (.50 white)       8.54:1    ✅ AAA
+  Experience bullets (--muted on --warm)   3.17:1    ⚠️  AA-large only (FAIL)
+  About body text (--muted on --cream)     3.47:1    ⚠️  AA-large only (FAIL)
+  Skills intro text (--muted on --cream)   3.47:1    ⚠️  AA-large only (FAIL)
+  Contact sub-labels (.45 white on --ink)  7.78:1    ✅ AAA
+  Education detail (.35 white on --ink)    6.28:1    ✅ AA
+
+  → The three FAIL entries are all 13–14px regular-weight prose,
+    which requires 4.5:1 for WCAG AA. --muted at oklch(52%) is
+    not dark enough for body text on warm backgrounds.
+
+CORE COLOR PROBLEMS IDENTIFIED
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM 1: Two warm accents competing for the same visual hierarchy slot
+  --terra (hue 44°) and --gold (hue 82°) are only 38° apart on the hue wheel.
+  Both read as "warm orange-yellow". In the Impact section, giant gold numbers
+  sit directly above terra source labels — neither wins dominance. In the Hero,
+  gold italic text competes with the terra eyebrow above it.
+  Result: Visual noise instead of hierarchy.
+
+PROBLEM 2: --terra is overloaded across 12+ different semantic roles
+  Currently used for: CTA buttons, active nav, side dot active, eyebrow labels,
+  left-border accents, skill column headers, source attribution badges, education
+  institution names, company names, tag hover states, and the "Current" badge.
+  When one color carries this many meanings, it stops communicating anything.
+
+PROBLEM 3: --muted fails WCAG AA for body text on light backgrounds
+  oklch(52%) gives only 3.2–3.5:1 on cream/warm backgrounds.
+  All prose in Experience, About, and Skills sections is technically non-compliant.
+
+PROBLEM 4: --cream and --warm are perceptually indistinguishable
+  A 4% L difference (93% vs 97%) means the two "light section" backgrounds
+  look identical. The intended visual rhythm between sections is lost.
+
+PROBLEM 5: No cool-toned color to represent "data / technical" context
+  Every accent is warm. The site's copy emphasizes data fluency, cloud tooling,
+  and analytical rigor, but the palette is entirely editorial/humanistic.
+  A single cool accent for technical labels would reinforce the PM+data identity.
+
+RECOMMENDED OPTIMIZED PALETTE
+────────────────────────────────────────────────────────────────────────────────
+
+  :root {
+    /* NEUTRALS — largely unchanged, they work */
+    --ink:    oklch(13% 0.016 55);    /* keep — warm near-black */
+    --ink2:   oklch(20% 0.018 55);    /* keep — About sidebar */
+    --cream:  oklch(97% 0.012 75);    /* keep — lightest bg */
+
+    /* TWEAK: darken warm to increase section distinction */
+    --warm:   oklch(89% 0.022 72);    /* was 93% — 8pt more distinct from cream */
+
+    /* FIX: darken muted to pass WCAG AA on light backgrounds */
+    --muted:  oklch(44% 0.014 58);    /* was 52% — now ~4.6:1 on warm/cream */
+
+    /* TWEAK: darken faint for better secondary readability */
+    --faint:  oklch(68% 0.008 58);    /* was 78% */
+
+    /* KEEP similar */
+    --border: oklch(86% 0.012 68);
+
+    /* REFINE: terra — deeper, richer, slightly redder */
+    --terra:  oklch(58% 0.21 36);     /* was 63% 0.18 44 — more vivid, less orange */
+    --terra2: oklch(86% 0.08 40);     /* light tint — keep similar */
+
+    /* MELLOW: gold — softer so it reads as supporting, not competing */
+    --gold:   oklch(72% 0.13 80);     /* was 78% 0.16 82 — quieter amber */
+
+    /* NEW: data-context accent — cool steel blue */
+    --slate:  oklch(55% 0.10 240);    /* for chips, tech tags, source labels */
+  }
+
+WHAT EACH CHANGE ACHIEVES
+────────────────────────────────────────────────────────────────────────────────
+
+  Token         Change                  Reason
+  ───────────   ─────────────────────   ──────────────────────────────────────
+  --warm        93% → 89% L            Creates clear visual break between
+                                        Experience and Skills sections
+
+  --muted       52% → 44% L            Fixes 3 WCAG AA failures on body text
+                                        (3.2:1 → ~4.6:1 on warm backgrounds)
+
+  --faint       78% → 68% L            Secondary labels become readable
+                                        rather than barely-there decoration
+
+  --terra       63%,0.18,44 → 58%,0.21,36   Deeper and richer; slightly redder
+                                        hue creates more distance from gold;
+                                        pops better on both light and dark bgs
+
+  --gold        78%,0.16,82 → 72%,0.13,80   Mellowed so it reads as supporting
+                                        accent, not equal-weight competitor;
+                                        still unmistakably golden
+
+  --slate (new) oklch(55% 0.10 240)    Cool steel blue for data/technical
+                                        labels — signals "proof point" vs
+                                        "brand action" without harshness
+
+STRICT COLOR ROLE ASSIGNMENT (Most Important Fix)
+────────────────────────────────────────────────────────────────────────────────
+
+  The biggest improvement isn't changing hues — it's enforcing non-overlapping
+  semantic roles for each color:
+
+  Color       Use ONLY for                        Remove from
+  ──────────  ──────────────────────────────────  ────────────────────────────
+  --terra     CTA buttons, nav active state,      Source attribution (win-src),
+              side dot active, eyebrow labels,     education institution names,
+              left-border accents                  skill column headers
+
+  --gold      Hero italic headline, all metric    Everything else
+              numbers (win-n, hstat-n, ewc-n)
+
+  --slate     Project chip labels, tech tags,     Nowhere else
+  (new)       "Used in →" evidence spans,
+              source attribution text
+
+  --muted     All body text on light backgrounds  Decorative / secondary
+  (darkened)                                       elements → use --faint
+
+EXPECTED VISUAL IMPACT OF CHANGES
+────────────────────────────────────────────────────────────────────────────────
+
+  Hero (S1):
+    Gold italic "actually use." reads more mellow and sophisticated.
+    Terra eyebrow clearly signals "label" role.
+    Two accents are perceptually distinguishable for the first time.
+
+  Impact (S3):
+    Giant metric numbers stay gold — immediately communicating achievement.
+    "AURORA · APM" source labels shift to --slate — cool technical contrast.
+    Three distinct color roles replace two competing warm ones.
+
+  Experience (S4):
+    Bullet text goes from slightly faded to clearly legible.
+    No change to visual personality — just better readability.
+
+  Skills (S5):
+    "Used in →" evidence spans shift from orange (terra) to slate (blue-gray).
+    Visual shorthand: "orange = domain category, blue = proof point."
+    That's meaningful signal instead of decoration.
+
+WHAT TO KEEP EXACTLY AS-IS
+────────────────────────────────────────────────────────────────────────────────
+  ✅ Dark/light alternating section rhythm
+  ✅ --ink near-black with warm undertone (distinctive, premium)
+  ✅ --cream warm off-white (essential to editorial feel)
+  ✅ Instrument Serif + DM Sans type pairing (excellent)
+  ✅ Terra-cotta as primary CTA/brand color (memorable, stands out from
+     standard developer/PM portfolio blues and purples)
+  ✅ Overall warm editorial brand identity
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HIGHEST-ROI FIXES (DO THESE FIRST)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Priority  Fix                                           Effort
+  ────────  ──────────────────────────────────────────   ──────
+  1st       Fix nav active state (IntersectionObserver)   ~1hr
+  2nd       Replace broken profile photo with local file  ~10min
+  3rd       Implement hamburger menu for mobile nav        ~2hr
+  4th       Darken --muted to oklch(44%) in index.css     ~5min
+  5th       Add SVG icons to Contact section               ~30min
+  6th       Add --slate token, reassign color roles        ~45min
+  7th       Wire project rows to actual URLs               ~15min
+  8th       Switch scroll-snap to "proximity"              ~2min
+  9th       Fill whitespace in Experience/Skills           ~2hr
+  10th      Add Resume link to nav                         ~10min
+
+  These 10 fixes address all Critical + High issues and the most
+  impactful Medium issues, and would transform the site from a
+  polished-but-broken prototype into a fully functional, accessible,
+  professional PM portfolio.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+END OF REVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

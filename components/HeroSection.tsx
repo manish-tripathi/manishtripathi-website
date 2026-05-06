@@ -13,7 +13,7 @@ const HeroSection: React.FC = () => (
           <strong>14-year career</strong> spanning enterprise research, growth analytics, and product — from 11 years at S&P Global to scaling Aurora's analytics platform 400% in 12 months.
         </p>
         <div className="hero-ctas">
-          <button className="btn-p" onClick={() => (window as any).goTo(2)}>See My Work →</button>
+          <button className="btn-p" onClick={() => (window as any).goTo(2)}>See My Impact →</button>
           <a href="https://calendly.com/maneeshtripathi/30min" target="_blank" rel="noreferrer">
             <button className="btn-g">Schedule a Call</button>
           </a>
