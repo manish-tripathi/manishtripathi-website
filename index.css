@@ -71,6 +71,8 @@ nav.main-nav.light-mode .nav-btn { color: var(--muted); }
 .nav-btn:hover, .nav-btn.active { color: var(--terra) !important; background: rgba(0,0,0,.04); }
 .nav-hire { background: var(--terra) !important; color: #fff !important; margin-left: 8px; }
 .nav-hire:hover { opacity: .85; }
+/* 3-class specificity beats .nav-btn.active so white text is always preserved on the terra button */
+.nav-btn.active.nav-hire { color: #fff !important; background: var(--terra) !important; }
 .nav-resume { border: 1px solid rgba(255,255,255,.18); margin-left: 4px; color: rgba(255,255,255,.55) !important; }
 nav.main-nav.scrolled .nav-resume { border-color: var(--border); color: var(--muted) !important; }
 .nav-resume:hover { border-color: var(--terra) !important; color: var(--terra) !important; background: transparent !important; }
@@ -78,17 +80,24 @@ nav.main-nav.scrolled .nav-resume { border-color: var(--border); color: var(--mu
 /* ── SIDE DOTS ── */
 .side-nav {
   position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
-  z-index: 150; display: flex; flex-direction: column; gap: 2px; align-items: center;
+  z-index: 150; display: flex; flex-direction: column; gap: 0; align-items: center;
 }
+/* Button is a transparent 28px touch target; ::before is the visible 5px dot */
 .sdot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(255,255,255,.3); cursor: pointer;
-  transition: all .25s; border: none; padding: 14px;
-  box-sizing: content-box;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: transparent; cursor: pointer;
+  border: none; padding: 0;
+  display: flex; align-items: center; justify-content: center;
 }
-.sdot.active { background: var(--terra); transform: scale(1.6); }
-.sdot.dark-dot { background: rgba(0,0,0,.2); }
-.sdot.dark-dot.active { background: var(--terra); }
+.sdot::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  transition: transform .25s, background .25s;
+  display: block; flex-shrink: 0;
+}
+.sdot.active::before { background: var(--terra); transform: scale(1.6); }
+.sdot.dark-dot::before { background: rgba(0,0,0,.25); }
+.sdot.dark-dot.active::before { background: var(--terra); }
 
 /* ── ARROWS ── */
 .nav-arrows {
