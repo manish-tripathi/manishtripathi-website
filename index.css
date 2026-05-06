@@ -71,6 +71,9 @@ nav.main-nav.light-mode .nav-btn { color: var(--muted); }
 .nav-btn:hover, .nav-btn.active { color: var(--terra) !important; background: rgba(0,0,0,.04); }
 .nav-hire { background: var(--terra) !important; color: #fff !important; margin-left: 8px; }
 .nav-hire:hover { opacity: .85; }
+.nav-resume { border: 1px solid rgba(255,255,255,.18); margin-left: 4px; color: rgba(255,255,255,.55) !important; }
+nav.main-nav.scrolled .nav-resume { border-color: var(--border); color: var(--muted) !important; }
+.nav-resume:hover { border-color: var(--terra) !important; color: var(--terra) !important; background: transparent !important; }
 
 /* ── SIDE DOTS ── */
 .side-nav {
@@ -106,7 +109,7 @@ nav.main-nav.light-mode .nav-btn { color: var(--muted); }
 .sec-num {
   position: absolute; bottom: 28px; left: 48px;
   font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
-  color: rgba(255,255,255,.18); pointer-events: none;
+  color: rgba(255,255,255,.35); pointer-events: none;
 }
 .sec-num.dark { color: var(--faint); }
 
@@ -343,6 +346,8 @@ h1.hero-hl em { font-style: italic; color: var(--gold); }
 .mobile-nav-num { font-family: var(--ff-d); font-size: 11px; color: rgba(255,255,255,.2); font-style: italic; min-width: 20px; }
 .mobile-hire { background: var(--terra) !important; color: #fff !important; margin-top: 12px; }
 .mobile-hire:hover { opacity: .85; }
+.mobile-resume { border: 1px solid rgba(255,255,255,.12); margin-top: 8px; color: rgba(255,255,255,.5) !important; }
+.mobile-resume:hover { border-color: var(--terra); color: var(--terra) !important; background: transparent !important; }
 
 @media (max-width: 900px) {
   nav.main-nav { padding: 0 20px; }

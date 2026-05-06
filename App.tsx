@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
 import ImpactSection from './components/ImpactSection';
@@ -18,6 +19,7 @@ const SECTIONS = [
 const App: React.FC = () => {
   const [current, setCurrent] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const scRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<HTMLElement[]>([]);
 
@@ -60,6 +62,7 @@ const App: React.FC = () => {
               {s.label}
             </button>
           ))}
+          <button className="nav-btn nav-resume" onClick={() => navigate('/resume')}>Resume ↗</button>
         </div>
         <button className={`hamburger${menuOpen ? ' open' : ''}${current > 0 ? ' scrolled' : ''}`} onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
           <span /><span /><span />
@@ -78,6 +81,10 @@ const App: React.FC = () => {
                 {s.label}
               </button>
             ))}
+            <button className="mobile-nav-btn mobile-resume" onClick={() => { navigate('/resume'); setMenuOpen(false); }}>
+              <span className="mobile-nav-num">↗</span>
+              Resume
+            </button>
           </div>
         </div>
       )}
