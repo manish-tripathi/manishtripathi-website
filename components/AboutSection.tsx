@@ -4,7 +4,7 @@ const AboutSection: React.FC = () => (
   <section className="snap" id="s2" data-screen-label="02 About">
     <div className="about-left">
       <div className="about-photo">
-        <img src="/avatar.svg" alt="Manish Tripathi" onError={(e) => { (e.target as HTMLImageElement).src = '/avatar.svg'; }} />
+        <img src="https://github.com/manish-tripathi.png" alt="Manish Tripathi" onError={(e) => { (e.target as HTMLImageElement).src = '/avatar.svg'; }} />
       </div>
       <div className="about-loc">📍 Gurugram, India</div>
       <div className="about-diffs">
