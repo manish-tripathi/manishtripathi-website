@@ -1,11 +1,12 @@
 import React from 'react';
+import { Calendar, Mail, Linkedin, Github } from 'lucide-react';
 import { EDUCATION } from '../constants';
 
 const LINKS = [
-  { icon: '📅', label: 'Schedule via Calendly', sub: 'Book a 30-minute call', href: 'https://calendly.com/maneeshtripathi/30min' },
-  { icon: '@',  label: 'maneeshtripathi@gmail.com', sub: 'Email directly', href: 'mailto:maneeshtripathi@gmail.com' },
-  { icon: 'in', label: 'LinkedIn', sub: 'linkedin.com/in/maneeshtripathi', href: 'https://linkedin.com/in/maneeshtripathi/' },
-  { icon: 'gh', label: 'GitHub',   sub: 'github.com/manish-tripathi', href: 'https://github.com/manish-tripathi' },
+  { icon: <Calendar size={16} />, label: 'Schedule via Calendly', sub: 'Book a 30-minute call', href: 'https://calendly.com/maneeshtripathi/30min' },
+  { icon: <Mail     size={16} />, label: 'maneeshtripathi@gmail.com', sub: 'Email directly', href: 'mailto:maneeshtripathi@gmail.com' },
+  { icon: <Linkedin size={16} />, label: 'LinkedIn', sub: 'linkedin.com/in/maneeshtripathi', href: 'https://linkedin.com/in/maneeshtripathi/' },
+  { icon: <Github   size={16} />, label: 'GitHub',   sub: 'github.com/manish-tripathi', href: 'https://github.com/manish-tripathi' },
 ];
 
 const ContactSection: React.FC = () => (
@@ -18,7 +19,7 @@ const ContactSection: React.FC = () => (
       </p>
       <div className="s6-links">
         {LINKS.map(l => (
-          <a key={l.label} href={l.href} target="_blank" rel="noreferrer">
+          <a key={l.label} href={l.href} target="_blank" rel="noreferrer" style={{ cursor: 'pointer' }}>
             <div className="s6-link">
               <div className="s6-link-icon">{l.icon}</div>
               <div>

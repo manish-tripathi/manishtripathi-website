@@ -51,7 +51,7 @@ const ExperienceSection: React.FC = () => {
           )}
         </div>
       </div>
-      <div className="sec-num dark">04 — Experience</div>
+      <div className="sec-num">04 — Experience</div>
     </section>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import HeroSection from './components/HeroSection';
+import HorizonHero from './components/HorizonHero';
 import AboutSection from './components/AboutSection';
 import ImpactSection from './components/ImpactSection';
 import ExperienceSection from './components/ExperienceSection';
@@ -7,12 +7,12 @@ import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 
 const SECTIONS = [
-  { id: 's1', label: 'Home',       darkBg: true  },
-  { id: 's2', label: 'About',      darkBg: false },
-  { id: 's3', label: 'Impact',     darkBg: true  },
-  { id: 's4', label: 'Experience', darkBg: false },
-  { id: 's5', label: 'Skills',     darkBg: false },
-  { id: 's6', label: 'Contact',    darkBg: true  },
+  { id: 's1', label: 'Home'       },
+  { id: 's2', label: 'About'      },
+  { id: 's3', label: 'Impact'     },
+  { id: 's4', label: 'Experience' },
+  { id: 's5', label: 'Skills'     },
+  { id: 's6', label: 'Contact'    },
 ];
 
 const App: React.FC = () => {
@@ -49,8 +49,6 @@ const App: React.FC = () => {
     return () => { io.disconnect(); window.removeEventListener('keydown', onKey); };
   }, []);
 
-  const isDark = SECTIONS[current]?.darkBg ?? true;
-
   return (
     <>
       {/* NAV */}
@@ -68,20 +66,20 @@ const App: React.FC = () => {
       {/* SIDE DOTS */}
       <div className="side-nav">
         {SECTIONS.map((s, i) => (
-          <button key={s.id} className={`sdot${i === current ? ' active' : ''}${!isDark ? ' dark-dot' : ''}`} onClick={() => goTo(i)} title={s.label} />
+          <button key={s.id} className={`sdot${i === current ? ' active' : ''}`} onClick={() => goTo(i)} title={s.label} />
         ))}
       </div>
 
       {/* ARROWS */}
       <div className="nav-arrows">
-        <button className={`arrow-btn${!isDark ? ' dark-arrow' : ''}`} onClick={() => goTo(current - 1)} style={{ opacity: current === 0 ? 0.3 : 1 }}>↑</button>
-        <span className={`arrow-label${!isDark ? ' dark-label' : ''}`}>0{current + 1} / 0{SECTIONS.length}</span>
-        <button className={`arrow-btn${!isDark ? ' dark-arrow' : ''}`} onClick={() => goTo(current + 1)} style={{ opacity: current === SECTIONS.length - 1 ? 0.3 : 1 }}>↓</button>
+        <button className="arrow-btn" onClick={() => goTo(current - 1)} style={{ opacity: current === 0 ? 0.3 : 1 }}>↑</button>
+        <span className="arrow-label">0{current + 1} / 0{SECTIONS.length}</span>
+        <button className="arrow-btn" onClick={() => goTo(current + 1)} style={{ opacity: current === SECTIONS.length - 1 ? 0.3 : 1 }}>↓</button>
       </div>
 
       {/* SCROLL CONTAINER */}
       <div id="sc" ref={scRef}>
-        <HeroSection />
+        <HorizonHero onSeeWork={() => goTo(2)} />
         <AboutSection />
         <ImpactSection />
         <ExperienceSection />

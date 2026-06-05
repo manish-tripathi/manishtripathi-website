@@ -28,7 +28,6 @@ export const EXPERIENCE: (Job & { wins?: { n: string; l: string }[]; tags?: stri
     wins: [
       { n: "400%", l: "Coverage scaled" },
       { n: "50%",  l: "Faster delivery" },
-      { n: "0→3",  l: "India team" },
       { n: "100+", l: "Market sources" },
     ],
     description: [
@@ -36,7 +35,7 @@ export const EXPERIENCE: (Job & { wins?: { n: string; l: string }[]; tags?: stri
       "Lead <strong>product discovery and requirements</strong> with research, commercial, and engineering. Manage external data vendors, define quality standards.",
       "<strong>Scaled coverage 400%+ in 12 months</strong> as APM — EU, Australia, Japan, Korea with day-ahead/intraday pricing, demand, generation, and ancillary services.",
       "<strong>Cut delivery time 50%</strong> (8→4 weeks) by separating data collection, processing, and visualisation with clear ownership and sprint-based cadence.",
-      "<strong>Built India team 0→3 in 6 months</strong> — onboarding, quality standards, global collaboration protocols.",
+      "<strong>Built the India analytics team from scratch</strong> — established QA frameworks, quality standards, and collaboration protocols supporting global product delivery.",
       "Designed infrastructure handling <strong>100+ market sources</strong> via YAML config files, feeding platform APIs and forecasting tools.",
       "Drive ongoing market expansion — Philippines rollout. <strong>Partner with senior leadership on 6–12 month roadmap</strong>, balancing new markets, system improvements, and customer requests.",
     ],
@@ -50,12 +49,15 @@ export const EXPERIENCE: (Job & { wins?: { n: string; l: string }[]; tags?: stri
     wins: [
       { n: "25%", l: "Media efficiency" },
       { n: "20%", l: "Conversions" },
+      { n: "15%", l: "Retention uplift" },
       { n: "40%", l: "Reporting cut" },
     ],
     description: [
-      "Built <strong>DBT + BigQuery pipelines</strong> consolidating Google, Meta, TikTok, Pinterest — 25% media efficiency gain for AV manufacturer.",
-      "Deployed <strong>K-Means segmentation and LTV modelling</strong> on Databricks for European consumer goods company — 20% higher conversions, 15% retention uplift.",
-      "Real-time P&L dashboard integrated with HubSpot — <strong>40% reduction in manual reporting effort.</strong>",
+      "Built <strong>DBT + BigQuery pipelines</strong> consolidating Google, Meta, TikTok, and Pinterest ad data for a leading AV manufacturer — <strong>25% media efficiency gain.</strong>",
+      "Led multi-phase analytics transformation for a European chemical & consumer goods company — unified marketing, sales, and customer data into a single decision intelligence ecosystem spanning digital and retail channels.",
+      "Deployed <strong>K-Means segmentation and LTV modelling</strong> on Databricks, integrating CRM, e-commerce, and media data — <strong>20% higher cross-channel conversions</strong> and 15% retention uplift.",
+      "Built executive-ready <strong>Power BI dashboards</strong> consolidating digital and offline campaign KPIs, enabling the marketing team to shift from reporting to decision-driven optimisation.",
+      "Established a <strong>real-time P&L intelligence dashboard</strong> integrated with HubSpot — improved executive visibility and reduced manual reporting effort by <strong>40%.</strong>",
     ],
     tags: ["DBT", "BigQuery", "Databricks", "Power BI", "Python"]
   },
@@ -67,10 +69,13 @@ export const EXPERIENCE: (Job & { wins?: { n: string; l: string }[]; tags?: stri
     wins: [
       { n: "20%", l: "Engagement lift" },
       { n: "25%", l: "Conversions" },
+      { n: "15%", l: "Retention gain" },
     ],
     description: [
-      "Led 3 analysts on multi-channel growth experimentation — <strong>20% engagement lift, 25% higher conversions.</strong>",
-      "Python + Power BI dashboards integrating behavioural and transactional data — <strong>15% retention improvement.</strong>",
+      "Led a team of 3 analysts driving <strong>growth experimentation across marketing and marketplace</strong> functions — 20% engagement lift and 25% higher conversions through heuristic multi-channel strategies (email, SMS, push).",
+      "Built <strong>Python + Power BI performance dashboards</strong> integrating behavioural, transactional, and engagement data — <strong>15% improvement in user retention.</strong>",
+      "Partnered with engineering to <strong>automate key business levers</strong> (Salary Estimator, Margin Calculator) using optimisation algorithms — faster pricing and placement decisions.",
+      "Implemented <strong>MongoDB-driven audience segmentation</strong> pipelines to improve targeting precision and close feedback loops between marketing, product, and operations.",
     ],
     tags: ["Growth Analytics", "Python", "Power BI", "MongoDB"]
   },
@@ -82,10 +87,13 @@ export const EXPERIENCE: (Job & { wins?: { n: string; l: string }[]; tags?: stri
     wins: [
       { n: "11 yrs", l: "Tenure" },
       { n: "40+",    l: "Global team" },
+      { n: "−10%",   l: "Irrelevant data" },
     ],
     description: [
-      "Led onboarding and capability-building for <strong>40+ professionals</strong> across Hyderabad, Ahmedabad, Islamabad, and Buenos Aires.",
-      "Power BI visualisation projects that <strong>streamlined M&A research workflows</strong> and reduced irrelevant data by 10%.",
+      "Led onboarding and capability-building for <strong>40+ professionals</strong> across Hyderabad, Ahmedabad, Islamabad, and Buenos Aires — ensuring consistency in M&A data collection and quality protocols.",
+      "Managed and mentored a team of <strong>5+ researchers</strong>, driving document quality improvements and aligning output with evolving editorial standards.",
+      "Delivered high-impact <strong>Power BI visualisation projects</strong> that streamlined M&A research workflows and improved decision-making speed across the team.",
+      "Reduced irrelevant data by <strong>10%</strong> through advanced statistical models and hypothesis testing. Led a <strong>Kaizen initiative</strong> cutting advisory process delivery by 2 hours.",
     ],
     tags: ["Financial Research", "Power BI", "Team Leadership", "M&A Analytics"]
   }
