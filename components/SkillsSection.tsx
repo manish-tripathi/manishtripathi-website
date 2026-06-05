@@ -58,7 +58,7 @@ const SkillsSection: React.FC = () => (
         </div>
       ))}
     </div>
-    <div className="sec-num dark">05 — Skills</div>
+    <div className="sec-num">05 — Skills</div>
   </section>
 );
 
