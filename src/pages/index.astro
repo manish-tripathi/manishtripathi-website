@@ -33,7 +33,7 @@ const posts = (await getCollection('writing', (p) => SHOW_DRAFTS || !p.data.draf
         <p><a href="/cv/">Read my CV</a> · <a href="/about/">More about me</a></p>
       </div>
       <figure class="portrait-figure">
-        <img src={SITE.photo} alt="Portrait of Manish Tripathi" width="460" height="460" loading="eager" />
+        <img src={SITE.photo} alt="Portrait of Manish Tripathi" width="460" height="460" loading="eager" fetchpriority="high" />
         <figcaption>{SITE.location}</figcaption>
       </figure>
     </div>
