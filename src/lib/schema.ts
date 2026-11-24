@@ -10,11 +10,17 @@ export function personSchema() {
     '@id': PERSON_ID,
     name: SITE.name,
     url: `${SITE.url}/`,
-    image: SITE.photo,
+    image: new URL(SITE.photo, SITE.url).href,
     jobTitle: SITE.jobTitle,
     description: SITE.positioning,
     worksFor: { '@type': 'Organization', name: SITE.employer.name, url: SITE.employer.url },
     alumniOf: EDUCATION.map((e) => ({ '@type': 'CollegeOrUniversity', name: e.school })),
+    hasCredential: EDUCATION.map((e) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name: e.detail,
+      recognizedBy: { '@type': 'CollegeOrUniversity', name: e.school },
+    })),
+    seeks: { '@type': 'Demand', description: 'Senior analytics and data product roles' },
     address: { '@type': 'PostalAddress', addressLocality: 'Gurugram', addressCountry: 'IN' },
     email: `mailto:${CONTACT.email}`,
     knowsAbout: [

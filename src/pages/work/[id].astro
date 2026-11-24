@@ -20,7 +20,7 @@ const url = `${SITE.url}/work/${entry.id}/`;
   schema={[articleSchema({ url, title: entry.data.title, description: entry.data.description })]}>
   <div class="wrap">
     <header class="page-head">
-      <p class="eyebrow">Case study {String(entry.data.order).padStart(2, '0')}</p>
+      <p class="label">Case study {String(entry.data.order).padStart(2, '0')}</p>
       <h1>{entry.data.title}</h1>
       <p class="desc">{entry.data.description}</p>
     </header>

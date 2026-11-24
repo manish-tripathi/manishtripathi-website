@@ -1,15 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
-import { CONTACT } from '../data/site';
+import { CONTACT, AVAILABILITY } from '../data/site';
 ---
-<Base title="Contact" description="Contact Manish Tripathi by email, phone or LinkedIn, or book a 30-minute call. Open to senior product and data leadership roles, advisory and consulting.">
+<Base title="Contact" description="Contact Manish Tripathi by email, phone or LinkedIn, or book a 30-minute call. Open to senior analytics and data product roles, advisory and consulting.">
   <div class="wrap">
     <header class="page-head">
-      <p class="eyebrow">Contact</p>
+      <p class="label">Contact</p>
       <h1>Get in touch</h1>
-      <p class="desc">Open to senior product and data leadership roles, advisory conversations and consulting, particularly where analytics meets enterprise software.</p>
+      <p class="desc">{AVAILABILITY}</p>
+      <p><a class="button" href={CONTACT.calendly}>Book a 30-minute call</a></p>
     </header>
-    <ul class="contact-list prose" style="max-width:48rem">
+    <ul class="contact-list">
       <li><span class="k">Email</span><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
       <li><span class="k">Book a call</span><a href={CONTACT.calendly}>30 minutes on Calendly</a></li>
       <li><span class="k">LinkedIn</span><a href={CONTACT.linkedin} rel="me">linkedin.com/in/maneeshtripathi</a></li>

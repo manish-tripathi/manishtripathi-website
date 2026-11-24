@@ -1,6 +1,6 @@
 ---
-import '@fontsource-variable/newsreader';
-import '@fontsource-variable/newsreader/wght-italic.css';
+import '@fontsource-variable/cormorant-garamond';
+import '@fontsource-variable/cormorant-garamond/wght-italic.css';
 import '@fontsource-variable/inter';
 import '../styles/global.css';
 import { SITE, NAV, CONTACT } from '../data/site';
@@ -38,8 +38,7 @@ const year = new Date().getFullYear();
     <meta name="author" content={SITE.name} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#151513" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f0e7" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
@@ -68,20 +67,39 @@ const year = new Date().getFullYear();
         <nav class="nav" aria-label="Main">
           {NAV.map((n) => <a href={n.href} aria-current={current(n.href) ? 'page' : undefined}>{n.label}</a>)}
         </nav>
+        <a class="button" href="/contact/">Book a call</a>
       </div>
     </header>
     <main id="main">
       <slot />
     </main>
     <footer class="site-footer">
-      <div class="wrap">
-        <span>© {year} {SITE.name} · {SITE.location}</span>
-        <ul>
-          <li><a href={`mailto:${CONTACT.email}`}>Email</a></li>
-          <li><a href={CONTACT.linkedin} rel="me">LinkedIn</a></li>
-          <li><a href={CONTACT.github} rel="me">GitHub</a></li>
-          <li><a href="/llms.txt">llms.txt</a></li>
-        </ul>
+      <div class="wrap footer-grid">
+        <div>
+          <p class="footer-brand">{SITE.name}</p>
+          <p class="muted" style="max-width:22rem;margin:0">Data sourcing, licensing, pipelines and governance, and the analytics teams behind them.</p>
+        </div>
+        <div>
+          <p class="label">Pages</p>
+          <ul>{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+        </div>
+        <div>
+          <p class="label">Elsewhere</p>
+          <ul>
+            <li><a href={`mailto:${CONTACT.email}`}>Email</a></li>
+            <li><a href={CONTACT.linkedin} rel="me">LinkedIn</a></li>
+            <li><a href={CONTACT.github} rel="me">GitHub</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="label">Based in</p>
+          <ul><li>{SITE.location}</li></ul>
+        </div>
+      </div>
+      <div class="wrap footer-base">
+        <span class="label">© {year} {SITE.name}</span>
+        <span class="label">manishtripathi.co.in</span>
       </div>
     </footer>
   </body>

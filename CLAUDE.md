@@ -14,7 +14,7 @@ npm run og        # regenerate public/og-image.jpg with sharp
 
 ## Architecture
 
-Static **Astro 7** site, deployed on Vercel (`vercel.json` pins the Astro preset, `dist/` output and trailing slashes). No backend, no UI framework and no client JS, apart from the print button on `/cv/`.
+Static **Astro 7** site, deployed on Vercel (`vercel.json` pins the Astro preset, `dist/` output and trailing slashes). No backend, no UI framework and no client JS, apart from the print button on `/cv/`. The hero motion is CSS only.
 
 - `src/data/site.ts` is the single source of truth for profile facts, contact details, proof numbers and CV content. Pages, JSON-LD and `llms.txt` all read from it.
 - `src/content.config.ts` defines two collections loaded from markdown: `work` (case studies) and `writing` (articles with a `draft` flag).
@@ -25,7 +25,9 @@ Static **Astro 7** site, deployed on Vercel (`vercel.json` pins the Astro preset
 
 ## Conventions
 
-- Design: editorial serif (Newsreader) with Inter for labels, numbered report-style sections, one accent colour. Light and dark follow `prefers-color-scheme`; every colour is a token in `src/styles/global.css`.
+- Design: warm ivory (chosen by Manish, 24 Nov 2026). Paper ivory background, espresso text, one brass accent, espresso panels for contrast; Cormorant Garamond for display type and Inter for body and labels. Light only by design; every colour is a token in `src/styles/global.css`. Keep text at 4.5:1 contrast or better.
+- Positioning: never call Manish a "Director"; he is open to senior analytics and data product roles. The ISB programme is the Advanced Management Programme in Business Analytics (Dean's List, top 10%).
+- Never reintroduce the "8 weeks to 4" launch-time claim; Manish dropped it as misleading.
 - Fonts are self-hosted through Fontsource; never add Google Fonts links.
 - Exactly one `h1` per page, and the home page `h1` is the name.
 - `/cv/` must stay print-safe: no motion, A4 page rules, nav and footer hidden in print.

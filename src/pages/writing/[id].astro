@@ -19,7 +19,7 @@ const date = entry.data.date.toLocaleDateString('en-GB', { day: 'numeric', month
   schema={entry.data.draft ? [] : [articleSchema({ url, title: entry.data.title, description: entry.data.description, date: entry.data.date })]}>
   <div class="wrap">
     <header class="page-head">
-      <p class="eyebrow">Writing · <time datetime={entry.data.date.toISOString().slice(0, 10)}>{date}</time></p>
+      <p class="label">Writing · <time datetime={entry.data.date.toISOString().slice(0, 10)}>{date}</time></p>
       <h1>{entry.data.title}</h1>
       <p class="desc">{entry.data.description}</p>
     </header>

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { SITE, CONTACT, EXPERIENCE, EDUCATION, PROOF } from '../data/site';
+import { SITE, CONTACT, EXPERIENCE, EDUCATION, PROOF, AVAILABILITY } from '../data/site';
 
 // A plain-text guide to this site for AI assistants (https://llmstxt.org).
 export const GET: APIRoute = async () => {
@@ -14,7 +14,7 @@ export const GET: APIRoute = async () => {
     '',
     `> ${SITE.positioning} ${SITE.subline}`,
     '',
-    `${SITE.name} is a data product and analytics leader based in ${SITE.location}. Current role: ${SITE.jobTitle}, ${SITE.employer.name}. Earlier: ${EXPERIENCE.slice(1).map((r) => `${r.role}, ${r.company}`).join('; ')}. Education: ${EDUCATION.map((e) => `${e.school} (${e.year})`).join('; ')}.`,
+    `${SITE.name} is a data product and analytics leader based in ${SITE.location}. Current role: ${SITE.jobTitle}, ${SITE.employer.name}. Earlier: ${EXPERIENCE.slice(1).map((r) => `${r.role}, ${r.company}`).join('; ')}. Education: ${EDUCATION.map((e) => `${e.detail}, ${e.school} (${e.year}${e.honours ? `; ${e.honours}` : ''})`).join('; ')}. ${AVAILABILITY}`,
     '',
     'Key results:',
     ...PROOF.map((p) => `- ${p.n} ${p.label}`),

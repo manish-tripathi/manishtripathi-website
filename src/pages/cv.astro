@@ -8,7 +8,7 @@ import { personSchema, profilePageSchema } from '../lib/schema';
   description="CV of Manish Tripathi, Product Manager at Aurora Energy Research: data product management, data licensing and governance, pipelines and analytics team leadership."
   schema={[personSchema(), profilePageSchema(`${SITE.url}/cv/`)]}>
   <div class="wrap">
-    <header class="page-head">
+    <header class="page-head cv-head">
       <h1>Manish Tripathi</h1>
       <p class="desc">{SITE.positioning}</p>
       <p class="small">
@@ -17,11 +17,11 @@ import { personSchema, profilePageSchema } from '../lib/schema';
         {CONTACT.phones.map((p, i) => <>{i > 0 && ' · '}<a href={`tel:${p.tel}`}>{p.display}</a> ({p.label})</>)} ·
         <a href={CONTACT.linkedin}>linkedin.com/in/maneeshtripathi</a>
       </p>
-      <p class="no-print"><button class="button" type="button" onclick="window.print()">Print or save as PDF</button></p>
+      <p class="no-print"><button class="button ghost" type="button" onclick="window.print()">Print or save as PDF</button></p>
     </header>
 
     <section class="section" aria-labelledby="exp">
-      <SectionHead num="01" title="Experience" id="exp" />
+      <SectionHead num="01" kicker="Experience" title="Experience" id="exp" />
       {EXPERIENCE.map((r) => (
         <div class="role">
           <div class="role-head">
@@ -34,20 +34,20 @@ import { personSchema, profilePageSchema } from '../lib/schema';
     </section>
 
     <section class="section" aria-labelledby="edu">
-      <SectionHead num="02" title="Education" id="edu" />
+      <SectionHead num="02" kicker="Education" title="Education" id="edu" />
       {EDUCATION.map((e) => (
         <div class="role">
           <div class="role-head">
-            <h3>{e.school}</h3>
+            <h3>{e.detail}</h3>
             <span class="period">{e.year}</span>
           </div>
-          <p style="margin:.4rem 0 0">{e.detail}{e.note && <span class="muted">. {e.note}</span>}</p>
+          <p style="margin:.4rem 0 0">{e.school}{e.honours && <> ({e.honours})</>}{e.note && <span class="muted">. {e.note}</span>}</p>
         </div>
       ))}
     </section>
 
     <section class="section" aria-labelledby="skills">
-      <SectionHead num="03" title="Skills" id="skills" />
+      <SectionHead num="03" kicker="Skills" title="Skills" id="skills" />
       <div class="skills">
         {SKILLS.map((s) => (
           <div>
