@@ -8,6 +8,7 @@ import '../styles/global.css';
 import cormorantUrl from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2?url';
 import cormorantItalicUrl from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-italic.woff2?url';
 import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import Analytics from '@vercel/analytics/astro';
 import { SITE, NAV, CONTACT } from '../data/site';
 
 interface Props {
@@ -110,5 +111,6 @@ const year = new Date().getFullYear();
         <span class="label">manishtripathi.co.in</span>
       </div>
     </footer>
+    <Analytics />
   </body>
 </html>
