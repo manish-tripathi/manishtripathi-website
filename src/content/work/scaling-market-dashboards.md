@@ -1,6 +1,6 @@
 ---
 title: Scaling power-market dashboards to new regions
-description: How I grew Aurora Energy Research's historical market dashboards by more than 400% and halved the time to launch a new market, from 8 weeks to 4.
+description: How I grew Aurora Energy Research's historical market dashboards by more than 400%, across Europe, Australia, Asia Pacific and North America.
 order: 1
 metric: 400%+
 metricLabel: growth in coverage
@@ -11,7 +11,7 @@ tools: [SQL, Python, dbt, Snowflake, Star schema modelling, Data APIs]
 
 ## The problem
 
-Aurora's historical market dashboards covered wholesale power in a handful of key European markets: the UK, Germany, France and Italy. Clients wanted more countries, more market types and more regions, and each new market took about eight weeks to deliver.
+Aurora's historical market dashboards covered wholesale power in a handful of key European markets: the UK, Germany, France and Italy. Clients wanted more countries, more market types and more regions.
 
 ## What I did
 
@@ -31,5 +31,5 @@ Coverage grew more than 400%:
 - **Asia Pacific:** Korea and the Philippines.
 - **North America:** nodal data extended beyond ERCOT and MISO to PJM, ISO-NE and WECC.
 
-Delivery time for a new market fell from 8 weeks to 4. The same harmonized data now feeds backcasts and automated monthly market commentary.
+The same harmonized data now feeds backcasts and automated monthly market commentary.
 

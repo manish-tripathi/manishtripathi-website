@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import DeliveryBars from '../../components/DeliveryBars.astro';
 import { SITE } from '../../data/site';
 import { articleSchema } from '../../lib/schema';
 
@@ -32,7 +31,6 @@ const url = `${SITE.url}/work/${entry.id}/`;
     </dl>
     <article class="prose">
       <Content />
-      {entry.id === 'scaling-market-dashboards' && <DeliveryBars />}
       {entry.data.tools.length > 0 && (
         <p class="small muted" style="margin-top:2.5rem">Tools and methods: {entry.data.tools.join(', ')}</p>
       )}

@@ -33,7 +33,6 @@ export const SAME_AS = [CONTACT.linkedin, CONTACT.github];
 
 export const PROOF = [
   { n: '400%+', label: 'growth in market dashboard coverage, across four continents' },
-  { n: '8 → 4', label: 'weeks to launch a new market, after splitting the work by stage' },
   { n: '40+', label: 'licensed data sources, each with clear usage terms and an owner' },
 ] as const;
 
@@ -61,7 +60,6 @@ export const EXPERIENCE: Role[] = [
     points: [
       'Own the historical market dashboards on Aurora’s power-market intelligence platform, from data sourcing to release.',
       'Grew dashboard coverage by more than 400%: more European countries and ancillary markets, Australia, Korea, the Philippines, and North American nodal markets.',
-      'Cut the time to launch a new market from 8 weeks to 4 by splitting collection, processing and visualisation, each with a clear owner, on a sprint cadence.',
       'Own acquisition, licensing and entitlements for more than 40 licensed data sources alongside open data.',
       'Led a governance review that gave every table a named owner, and co-designed monitoring that now covers over 80% of tables.',
       'Built the India analytics team from scratch and moved quality checks on new data into the data team.',

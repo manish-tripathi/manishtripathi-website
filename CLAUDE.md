@@ -14,7 +14,7 @@ npm run og        # regenerate public/og-image.jpg with sharp
 
 ## Architecture
 
-Static **Astro 7** site, deployed on Vercel (`vercel.json` pins the Astro preset, `dist/` output and trailing slashes). No backend, no UI framework, no client JS beyond one small IntersectionObserver in `src/components/DeliveryBars.astro`.
+Static **Astro 7** site, deployed on Vercel (`vercel.json` pins the Astro preset, `dist/` output and trailing slashes). No backend, no UI framework and no client JS, apart from the print button on `/cv/`.
 
 - `src/data/site.ts` is the single source of truth for profile facts, contact details, proof numbers and CV content. Pages, JSON-LD and `llms.txt` all read from it.
 - `src/content.config.ts` defines two collections loaded from markdown: `work` (case studies) and `writing` (articles with a `draft` flag).

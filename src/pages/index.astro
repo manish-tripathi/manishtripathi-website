@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
-import DeliveryBars from '../components/DeliveryBars.astro';
 import { SITE, PROOF } from '../data/site';
 import { personSchema, websiteSchema } from '../lib/schema';
 import { SHOW_DRAFTS } from '../lib/drafts';
@@ -65,13 +64,8 @@ const posts = (await getCollection('writing', (p) => SHOW_DRAFTS || !p.data.draf
       </ol>
     </section>
 
-    <section class="section" aria-labelledby="speed">
-      <SectionHead num="04" title="Faster to market" id="speed" />
-      <DeliveryBars />
-    </section>
-
     <section class="section" aria-labelledby="writing">
-      <SectionHead num="05" title="Latest writing" id="writing" />
+      <SectionHead num="04" title="Latest writing" id="writing" />
       {posts.length === 0 ? (
         <p class="muted">Notes on data products, licensing and governance are on the way.</p>
       ) : (
