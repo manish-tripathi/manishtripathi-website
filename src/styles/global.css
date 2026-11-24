@@ -112,9 +112,6 @@ p { margin: 0 0 1em; }
 
 /* Home: hero */
 .hero { position: relative; overflow: hidden; background: var(--bg-2); padding: 7rem 0 10rem; text-align: center; }
-.hero .motif { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.35; pointer-events: none; }
-.hero .motif path, .hero .motif line { fill: none; stroke: var(--muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.hero .motif .grid line { stroke: var(--rule); }
 .hero-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
 .hero h1 { font-size: clamp(3.4rem, 9vw, 6.8rem); font-weight: 500; line-height: 1; }
 .rule-accent { display: block; width: 3.5rem; height: 1px; background: var(--accent); }
@@ -126,12 +123,10 @@ p { margin: 0 0 1em; }
 
 /* Gentle entrance, CSS only */
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@keyframes draw { from { stroke-dashoffset: 2600; } to { stroke-dashoffset: 0; } }
 .rise { animation: rise 1.6s cubic-bezier(.2,.7,.2,1) both; }
 .d1 { animation-delay: .2s; } .d2 { animation-delay: .45s; } .d3 { animation-delay: .7s; }
-.hero .motif .draw path { stroke-dasharray: 2600; animation: draw 5s cubic-bezier(.3,.6,.2,1) both; }
 @media (prefers-reduced-motion: reduce) {
-  .rise, .hero .motif .draw path { animation: none; }
+  .rise { animation: none; }
 }
 
 /* Home: About panel overlapping the hero */

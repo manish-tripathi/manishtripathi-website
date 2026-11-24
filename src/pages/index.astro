@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
-import HeroMotif from '../components/HeroMotif.astro';
 import Timeline from '../components/Timeline.astro';
 import Education from '../components/Education.astro';
 import { SITE, PROOF, ABOUT, AVAILABILITY, CONTACT } from '../data/site';
@@ -16,7 +15,6 @@ const posts = (await getCollection('writing', (p) => SHOW_DRAFTS || !p.data.draf
 ---
 <Base schema={[personSchema(), websiteSchema()]}>
   <section class="hero" aria-labelledby="name">
-    <HeroMotif />
     <div class="wrap hero-inner">
       <p class="label rise">Data product and analytics leadership</p>
       <span class="rule-accent rise d1" aria-hidden="true"></span>

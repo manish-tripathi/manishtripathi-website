@@ -30,7 +30,6 @@ export const AVAILABILITY = 'Open to senior analytics and data product roles, ad
 export const CONTACT = {
   email: 'maneeshtripathi@gmail.com',
   phones: [
-    { label: 'UK', display: '+44 7721 910512', tel: '+447721910512' },
     { label: 'India', display: '+91 98733 18106', tel: '+919873318106' },
   ],
   linkedin: 'https://www.linkedin.com/in/maneeshtripathi/',
