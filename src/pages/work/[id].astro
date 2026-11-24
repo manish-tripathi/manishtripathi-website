@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../data/site';
+import { articleSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+  return work.map((entry, i) => ({
+    params: { id: entry.id },
+    props: { entry, prev: work[i - 1], next: work[i + 1] },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+const url = `${SITE.url}/work/${entry.id}/`;
+---
+<Base title={entry.data.title} description={entry.data.description} type="article"
+  schema={[articleSchema({ url, title: entry.data.title, description: entry.data.description })]}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="label">Case study {String(entry.data.order).padStart(2, '0')}</p>
+      <h1>{entry.data.title}</h1>
+      <p class="desc">{entry.data.description}</p>
+    </header>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>{entry.data.role}</dd></div>
+      <div><dt>When</dt><dd>{entry.data.period}</dd></div>
+      <div><dt>Headline</dt><dd>{entry.data.metric} {entry.data.metricLabel}</dd></div>
+    </dl>
+    <article class="prose">
+      <Content />
+      {entry.data.tools.length > 0 && (
+        <p class="small muted" style="margin-top:2.5rem">Tools and methods: {entry.data.tools.join(', ')}</p>
+      )}
+    </article>
+    <nav class="pager" aria-label="More case studies">
+      {prev ? <a href={`/work/${prev.id}/`}>← {prev.data.title}</a> : <a href="/work/">← All work</a>}
+      {next ? <a href={`/work/${next.id}/`}>{next.data.title} →</a> : <a href="/contact/">Get in touch →</a>}
+    </nav>
+  </div>
+</Base>

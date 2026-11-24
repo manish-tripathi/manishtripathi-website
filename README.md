@@ -1,20 +1,24 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# manishtripathi.co.in
 
-# Run and deploy your AI Studio app
+Personal site of Manish Tripathi, built with [Astro](https://astro.build) as a static site and hosted on Vercel.
 
-This contains everything you need to run your app locally.
+## Commands
 
-View your app in AI Studio: https://ai.studio/apps/drive/1wKQm778ckCIBJWrLzaSh-qc7nVL6f6Pi
+```bash
+npm install
+npm run dev       # local dev server at http://localhost:4321
+npm run build     # static build to dist/
+npm run preview   # serve the built site
+npm run check     # Astro and TypeScript checks
+npm run og        # rebuild public/og-image.jpg (1200x630 share image)
+```
 
-## Run Locally
+Node 22.23.4 or newer is required by Astro 7.
 
-**Prerequisites:**  Node.js
+## Where things live
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- `src/data/site.ts`: profile, positioning line, contact details, CV content.
+- `src/content/work/`: the case studies, one markdown file each.
+- `src/content/writing/`: articles. `draft: true` shows a piece only on local and preview builds; production builds (`VERCEL_ENV=production`) leave it out.
+- `src/pages/`: routes, plus `llms.txt` and `llms-full.txt` for AI assistants.
+- `public/robots.txt`: allows search engines and AI crawlers and points to the sitemap.

@@ -1,0 +1,13 @@
+---
+import { EDUCATION } from '../data/site';
+---
+<ul class="edu-list">
+  {EDUCATION.map((e) => (
+    <li>
+      <span class="label">{e.year}</span>
+      <h3>{e.detail}</h3>
+      <p class="school">{e.school}</p>
+      {e.honours && <p class="honours">{e.honours}</p>}
+    </li>
+  ))}
+</ul>

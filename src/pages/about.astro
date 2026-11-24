@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Timeline from '../components/Timeline.astro';
+import Education from '../components/Education.astro';
+import { SITE, ABOUT } from '../data/site';
+import { personSchema, profilePageSchema } from '../lib/schema';
+---
+<Base title="About" type="profile"
+  description="About Manish Tripathi: close to 15 years in market data, from M&A research at S&P Global to leading power-market data at Aurora Energy Research. Open to senior analytics and data product roles."
+  schema={[personSchema(), profilePageSchema(`${SITE.url}/about/`)]}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="label">About</p>
+      <h1>About Manish Tripathi</h1>
+      <p class="desc">{SITE.positioning}</p>
+    </header>
+
+    <div class="about-grid">
+      <div class="prose">
+        {ABOUT.map((p) => <p>{p}</p>)}
+        <p><a href="/cv/">Read my CV</a> or <a href="/contact/">get in touch</a>.</p>
+      </div>
+      <figure class="portrait-figure">
+        <img src={SITE.photo} alt="Portrait of Manish Tripathi" width="460" height="460" loading="lazy" />
+        <figcaption>{SITE.location}</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section class="band" aria-labelledby="experience">
+    <div class="wrap">
+      <SectionHead num="01" kicker="Experience" title="From research to product" id="experience"
+        aside="The full detail is on the CV." />
+      <Timeline />
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="education">
+    <SectionHead num="02" kicker="Education" title="Education" id="education" />
+    <Education />
+  </section>
+</Base>

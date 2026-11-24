@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Timeline from '../components/Timeline.astro';
+import Education from '../components/Education.astro';
+import { SITE, PROOF, ABOUT, AVAILABILITY, CONTACT } from '../data/site';
+import { personSchema, websiteSchema } from '../lib/schema';
+import { SHOW_DRAFTS } from '../lib/drafts';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('writing', (p) => SHOW_DRAFTS || !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+<Base schema={[personSchema(), websiteSchema()]}>
+  <section class="hero" aria-labelledby="name">
+    <div class="wrap hero-inner">
+      <p class="label rise">Data product and analytics leadership</p>
+      <span class="rule-accent rise d1" aria-hidden="true"></span>
+      <h1 id="name" class="rise d1">{SITE.name}</h1>
+      <p class="lede rise d2">{SITE.positioning}</p>
+      <p class="subline rise d3">{SITE.subline}</p>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="about">
+    <div class="about-panel">
+      <div class="panel">
+        <p class="label">About</p>
+        <h2 id="about">From source to decision</h2>
+        {ABOUT.map((p) => <p>{p}</p>)}
+        <p><a href="/cv/">Read my CV</a> · <a href="/about/">More about me</a></p>
+      </div>
+      <figure class="portrait-figure">
+        <img src={SITE.photo} alt="Portrait of Manish Tripathi" width="460" height="460" loading="eager" />
+        <figcaption>{SITE.location}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-label="In numbers">
+    <ul class="proof">
+      {PROOF.map((p) => (
+        <li><span class="n">{p.n}</span><span class="l">{p.label}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap section" aria-labelledby="work">
+    <SectionHead num="01" kicker="Selected work" title="Three case studies" id="work"
+      aside="From sourcing the data to the team that ships it." />
+    <ol class="work-list">
+      {work.map((w, i) => (
+        <li>
+          <a href={`/work/${w.id}/`}>
+            <span class="idx">{String(i + 1).padStart(2, '0')}</span>
+            <span>
+              <h3>{w.data.title}</h3>
+              <p>{w.data.description}</p>
+            </span>
+            <span class="metric">{w.data.metric}<small>{w.data.metricLabel}</small></span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="band" aria-labelledby="experience">
+    <div class="wrap">
+      <SectionHead num="02" kicker="Experience" title="From research to product" id="experience"
+        aside="Close to 15 years across research, analytics and product." />
+      <Timeline />
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="education">
+    <SectionHead num="03" kicker="Education" title="Education" id="education" />
+    <Education />
+  </section>
+
+  <section class="wrap section" aria-labelledby="writing">
+    <div class="split">
+      <SectionHead num="04" kicker="Writing" title="Notes" id="writing"
+        aside="Short pieces on data products, licensing, governance and the teams behind them." />
+      {posts.length === 0 ? (
+        <p class="muted">Notes on data products, licensing and governance are on the way.</p>
+      ) : (
+        <ul class="post-list">
+          {posts.map((p) => (
+            <li>
+              <a href={`/writing/${p.id}/`}>{p.data.title}</a>
+              {p.data.draft && <span class="badge">Draft</span>}
+              <p>{p.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <section class="contact-band" aria-labelledby="contact">
+    <div class="wrap grid">
+      <div>
+        <p class="label">Contact</p>
+        <h2 id="contact">Write to me.</h2>
+        <p class="italic">{AVAILABILITY}</p>
+      </div>
+      <div>
+        <p><a class="button" href={CONTACT.calendly}>Book a 30-minute call</a></p>
+        <ul class="contact-list" style="margin-top:2rem">
+          <li><span class="k">Email</span><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
+          <li><span class="k">LinkedIn</span><a href={CONTACT.linkedin} rel="me">linkedin.com/in/maneeshtripathi</a></li>
+          {CONTACT.phones.map((p) => (
+            <li><span class="k">Phone ({p.label})</span><a href={`tel:${p.tel}`}>{p.display}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

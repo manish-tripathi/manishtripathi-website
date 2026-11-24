@@ -1,0 +1,15 @@
+---
+import { EXPERIENCE } from '../data/site';
+---
+<ol class="timeline">
+  {EXPERIENCE.map((r) => (
+    <li>
+      <span class="period">{r.period}</span>
+      <div>
+        <h3>{r.role}</h3>
+        <p class="org"><a href={r.url}>{r.company}</a></p>
+        <p>{r.summary}</p>
+      </div>
+    </li>
+  ))}
+</ol>

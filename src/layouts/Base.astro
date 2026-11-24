@@ -1,0 +1,106 @@
+---
+import '@fontsource-variable/cormorant-garamond';
+import '@fontsource-variable/cormorant-garamond/wght-italic.css';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import { SITE, NAV, CONTACT } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  type?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+  schema?: object[];
+}
+
+const {
+  title,
+  description = SITE.defaultDescription,
+  type = 'website',
+  noindex = false,
+  schema = [],
+} = Astro.props;
+
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Data product and analytics leader`;
+const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonical = new URL(path, SITE.url).href;
+const ogImage = new URL(SITE.ogImage, SITE.url).href;
+const current = (href: string) => path.startsWith(href);
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.name} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#f5f0e7" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name}: ${SITE.positioning}`} />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">{SITE.name}</a>
+        <nav class="nav" aria-label="Main">
+          {NAV.map((n) => <a href={n.href} aria-current={current(n.href) ? 'page' : undefined}>{n.label}</a>)}
+        </nav>
+        <a class="button" href="/contact/">Book a call</a>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          <p class="footer-brand">{SITE.name}</p>
+          <p class="muted" style="max-width:22rem;margin:0">Data sourcing, licensing, pipelines and governance, and the analytics teams behind them.</p>
+        </div>
+        <div>
+          <p class="label">Pages</p>
+          <ul>{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+        </div>
+        <div>
+          <p class="label">Elsewhere</p>
+          <ul>
+            <li><a href={`mailto:${CONTACT.email}`}>Email</a></li>
+            <li><a href={CONTACT.linkedin} rel="me">LinkedIn</a></li>
+            <li><a href={CONTACT.github} rel="me">GitHub</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="label">Based in</p>
+          <ul><li>{SITE.location}</li></ul>
+        </div>
+      </div>
+      <div class="wrap footer-base">
+        <span class="label">© {year} {SITE.name}</span>
+        <span class="label">manishtripathi.co.in</span>
+      </div>
+    </footer>
+  </body>
+</html>
