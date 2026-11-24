@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { SHOW_DRAFTS } from '../../lib/drafts';
+
+const posts = (await getCollection('writing', (p) => SHOW_DRAFTS || !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="Writing" description="Notes by Manish Tripathi on data products, data licensing, governance and running analytics teams.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow">Notes</p>
+      <h1>Writing</h1>
+      <p class="desc">Short notes on data products, licensing, governance and the teams behind them.</p>
+    </header>
+    {posts.length === 0 ? (
+      <p class="muted prose">The first pieces are being written. Until then, the <a href="/work/">case studies</a> show how I work.</p>
+    ) : (
+      <ul class="post-list prose">
+        {posts.map((p) => (
+          <li>
+            <a href={`/writing/${p.id}/`}>{p.data.title}</a>
+            {p.data.draft && <span class="badge">Draft</span>}
+            <p>{p.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</Base>

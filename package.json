@@ -1,40 +1,27 @@
 {
-  "name": "manish-tripathi-portfolio",
+  "name": "manishtripathi-website",
   "private": true,
-  "version": "1.0.1",
+  "version": "2.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.23.4"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "og": "node scripts/make-og-image.mjs"
   },
   "dependencies": {
-    "framer-motion": "^12.40.0",
-    "gsap": "^3.15.0",
-    "lucide-react": "^0.344.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0",
-    "three": "^0.184.0"
+    "@astrojs/sitemap": "^3.7.6",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "astro": "^7.4.13"
   },
   "devDependencies": {
-    "@eslint/js": "^8.57.0",
-    "@types/react": "^18.2.64",
-    "@types/react-dom": "^18.2.21",
-    "@types/three": "^0.184.1",
-    "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.22",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.37.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.12",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.18",
-    "typescript": "^5.2.2",
-    "typescript-eslint": "^7.12.0",
-    "uipro-cli": "^2.2.3",
-    "vite": "^5.1.4"
+    "@astrojs/check": "^0.9.12",
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.3"
   }
 }

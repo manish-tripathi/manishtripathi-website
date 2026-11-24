@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import DeliveryBars from '../components/DeliveryBars.astro';
+import { SITE, PROOF } from '../data/site';
+import { personSchema, websiteSchema } from '../lib/schema';
+import { SHOW_DRAFTS } from '../lib/drafts';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('writing', (p) => SHOW_DRAFTS || !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+<Base schema={[personSchema(), websiteSchema()]}>
+  <div class="wrap">
+    <section class="hero" aria-labelledby="name">
+      <div>
+        <p class="eyebrow">Data product and analytics leadership</p>
+        <h1 id="name">{SITE.name}</h1>
+        <p class="lede">{SITE.positioning}</p>
+        <p class="subline">{SITE.subline}</p>
+      </div>
+      <img class="portrait" src={SITE.photo} alt="Portrait of Manish Tripathi" width="176" height="176" loading="eager" />
+    </section>
+
+    <section class="section" aria-labelledby="proof">
+      <SectionHead num="01" title="In numbers" id="proof" />
+      <ul class="proof">
+        {PROOF.map((p) => (
+          <li><span class="n">{p.n}</span><span class="l">{p.label}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="bio">
+      <SectionHead num="02" title="About" id="bio" />
+      <div class="cols">
+        <div>
+          <p>I started in research at S&amp;P Global Market Intelligence, where I spent eleven years on M&amp;A data and trained researchers across four offices. After the Business Analytics programme at the Indian School of Business, I moved into growth and marketing analytics, and then into product.</p>
+          <p>Today I lead historical power-market data at Aurora Energy Research: where the data comes from and on what terms, how it is modelled and checked, and the team that keeps it running.</p>
+        </div>
+        <div>
+          <blockquote class="pull">Insights only matter when they change a decision.</blockquote>
+          <p><a href="/about/">More about how I work</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="work">
+      <SectionHead num="03" title="Selected work" id="work" />
+      <ol class="work-list">
+        {work.map((w, i) => (
+          <li>
+            <a href={`/work/${w.id}/`}>
+              <span class="idx">{String(i + 1).padStart(2, '0')}</span>
+              <span>
+                <h3>{w.data.title}</h3>
+                <p>{w.data.description}</p>
+              </span>
+              <span class="metric">{w.data.metric}<small>{w.data.metricLabel}</small></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="section" aria-labelledby="speed">
+      <SectionHead num="04" title="Faster to market" id="speed" />
+      <DeliveryBars />
+    </section>
+
+    <section class="section" aria-labelledby="writing">
+      <SectionHead num="05" title="Latest writing" id="writing" />
+      {posts.length === 0 ? (
+        <p class="muted">Notes on data products, licensing and governance are on the way.</p>
+      ) : (
+        <ul class="post-list">
+          {posts.map((p) => (
+            <li>
+              <a href={`/writing/${p.id}/`}>{p.data.title}</a>
+              {p.data.draft && <span class="badge">Draft</span>}
+              <p>{p.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </div>
+</Base>

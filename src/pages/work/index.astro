@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Work" description="Case studies from Manish Tripathi: scaling power-market dashboards by 400%+, licensing and governing 40+ data sources, and building an analytics team from scratch.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow">Case studies</p>
+      <h1>Work</h1>
+      <p class="desc">Three pieces of work from Aurora Energy Research, from sourcing data to the team that ships it.</p>
+    </header>
+    <ol class="work-list">
+      {work.map((w, i) => (
+        <li>
+          <a href={`/work/${w.id}/`}>
+            <span class="idx">{String(i + 1).padStart(2, '0')}</span>
+            <span>
+              <h2>{w.data.title}</h2>
+              <p>{w.data.description}</p>
+            </span>
+            <span class="metric">{w.data.metric}<small>{w.data.metricLabel}</small></span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Base>

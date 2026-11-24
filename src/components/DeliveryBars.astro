@@ -1,0 +1,35 @@
+---
+// The site's one data-driven scroll moment. The bars show their final widths
+// without JavaScript and for visitors who prefer reduced motion.
+---
+<figure class="bars" data-bars>
+  <div class="bar-row">
+    <span>Before</span>
+    <div class="bar-track" aria-hidden="true"><div class="bar" style="--w: 100%">8 weeks</div></div>
+  </div>
+  <div class="bar-row">
+    <span>After</span>
+    <div class="bar-track" aria-hidden="true"><div class="bar after" style="--w: 50%">4 weeks</div></div>
+  </div>
+  <figcaption>Time to launch a new market on Aurora’s historical dashboards fell from 8 weeks to 4.</figcaption>
+</figure>
+
+<script>
+  const figures = document.querySelectorAll<HTMLElement>('[data-bars]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+    figures.forEach((f) => io.observe(f));
+  } else {
+    figures.forEach((f) => f.classList.add('in'));
+  }
+</script>

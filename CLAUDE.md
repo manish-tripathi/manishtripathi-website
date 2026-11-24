@@ -1,53 +1,33 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
-## Build & Development Commands
+## Commands
 
 ```bash
-npm run dev          # Start Vite dev server (http://localhost:5173)
-npm run build        # Production build to dist/
-npm run preview      # Preview production build locally
-npm run lint         # ESLint (v8 flat config)
-npm run typecheck    # TypeScript type checking (tsc --noEmit)
+npm run dev       # Astro dev server (http://localhost:4321)
+npm run build     # static build to dist/
+npm run preview   # preview the build
+npm run check     # astro check (TypeScript + .astro diagnostics)
+npm run og        # regenerate public/og-image.jpg with sharp
 ```
 
 ## Architecture
 
-This is a **static portfolio website** — React 18 + TypeScript + Vite + Tailwind CSS. No backend or API calls. All content lives in `constants.ts`.
+Static **Astro 7** site, deployed on Vercel (`vercel.json` pins the Astro preset, `dist/` output and trailing slashes). No backend, no UI framework, no client JS beyond one small IntersectionObserver in `src/components/DeliveryBars.astro`.
 
-### Data Flow
+- `src/data/site.ts` is the single source of truth for profile facts, contact details, proof numbers and CV content. Pages, JSON-LD and `llms.txt` all read from it.
+- `src/content.config.ts` defines two collections loaded from markdown: `work` (case studies) and `writing` (articles with a `draft` flag).
+- `src/lib/drafts.ts`: drafts build only when `VERCEL_ENV !== 'production'`. Draft pages carry `noindex`.
+- `src/lib/schema.ts`: Person, WebSite, ProfilePage and Article JSON-LD.
+- `src/layouts/Base.astro`: head (title, description, canonical, og/twitter tags, JSON-LD), header, footer. Every page passes its own title and description.
+- Routes: `/`, `/work/`, `/work/[id]/`, `/writing/`, `/writing/[id]/`, `/about/`, `/cv/` (printable A4), `/contact/`, `/llms.txt`, `/llms-full.txt`.
 
-`constants.ts` is the single source of truth for all displayed content (profile, experience, education, skills, projects, social links). Types are defined in `types.ts`. Components import data directly from constants — there is no state management library or data fetching.
+## Conventions
 
-### Routing
-
-`App.tsx` uses **HashRouter** with three routes:
-- `/` → `HomePage` (Hero + Skills sidebar + Experience/Education) wrapped in `MainLayout`
-- `/projects` → `ProjectsGrid` wrapped in `MainLayout`
-- `/resume` → `ResumeView` (standalone, no navbar/footer — optimized for print)
-
-`MainLayout` provides the Navbar, content outlet, and Footer. Dark/light mode state lives in `App.tsx` and is passed down via props.
-
-### File Organization
-
-Source files are at the **project root** (no `src/` directory). Components in `components/`, hooks in `hooks/`.
-
-### Animation System
-
-Scroll-triggered animations use a custom `hooks/useInView.ts` (IntersectionObserver wrapper) and `components/AnimateIn.tsx` (reusable wrapper). CSS keyframes and animation classes are defined in `index.css`. All animations are disabled in `@media print`.
-
-### Styling Conventions
-
-- Tailwind CSS with class-based dark mode (`dark:` prefix)
-- Every visual element must have both light and dark mode styles
-- Color-coded sections: blue (Experience), violet (Skills), emerald (Education)
-- Gradient utilities defined as CSS custom properties in `index.css`
-- `.gradient-text` utility class for gradient text effects
-
-### Key Constraints
-
-- `ResumeView.tsx` must remain print-safe — no animations, A4-optimized layout
-- ESLint is pinned to **v8** (v9 breaks plugin compatibility)
-- Zero animation dependencies — all animations are CSS + IntersectionObserver
-- The `Projects.tsx` component is unused (replaced by `ProjectsGrid.tsx`)
+- Design: editorial serif (Newsreader) with Inter for labels, numbered report-style sections, one accent colour. Light and dark follow `prefers-color-scheme`; every colour is a token in `src/styles/global.css`.
+- Fonts are self-hosted through Fontsource; never add Google Fonts links.
+- Exactly one `h1` per page, and the home page `h1` is the name.
+- `/cv/` must stay print-safe: no motion, A4 page rules, nav and footer hidden in print.
+- Respect `prefers-reduced-motion` for any animation.
+- Content about Aurora Energy Research stays within public limits: no client, vendor or exchange names, no licensing terms or prices, no unreleased products, no revenue.
