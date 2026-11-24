@@ -22,7 +22,7 @@ import { personSchema, profilePageSchema } from '../lib/schema';
         <p><a href="/cv/">Read my CV</a> or <a href="/contact/">get in touch</a>.</p>
       </div>
       <figure class="portrait-figure">
-        <img src={SITE.photo} alt="Portrait of Manish Tripathi" width="460" height="460" loading="lazy" />
+        <img src={SITE.photo} alt="Portrait of Manish Tripathi" width="460" height="460" loading="eager" fetchpriority="high" />
         <figcaption>{SITE.location}</figcaption>
       </figure>
     </div>

@@ -3,6 +3,11 @@ import '@fontsource-variable/cormorant-garamond';
 import '@fontsource-variable/cormorant-garamond/wght-italic.css';
 import '@fontsource-variable/inter';
 import '../styles/global.css';
+// The three faces every page shows above the fold. Preloading them lets the
+// browser fetch them alongside the HTML instead of after the CSS is parsed.
+import cormorantUrl from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2?url';
+import cormorantItalicUrl from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-italic.woff2?url';
+import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import { SITE, NAV, CONTACT } from '../data/site';
 
 interface Props {
@@ -41,6 +46,9 @@ const year = new Date().getFullYear();
     <meta name="theme-color" content="#f5f0e7" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <link rel="preload" href={cormorantUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={cormorantItalicUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={interUrl} as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.name} />
